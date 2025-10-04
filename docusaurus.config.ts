@@ -108,15 +108,6 @@ const config: Config = {
           ],
         },
         {
-          title: 'Docs',
-          items: [
-            {
-              label: 'Tutorial',
-              to: '/tutodocs/intro',
-            },
-          ],
-        },
-        {
           title: 'Community',
           items: [
             {
