@@ -1,0 +1,134 @@
+---
+sidebar_position: 3
+---
+# Zone DNS
+```bash
+/var/named
+├── dynamic
+├── slaves
+└── masters
+    ├── mondomaine.zone
+    └── sousdomaine.mondomaine.zone
+```
+### Créer une zone DNS
+
+Ajouter les lignes suivantes dans le fichier de configuration `/etc/named.conf`:
+```bash
+    zone "mondomaine." IN {
+            type master;
+            file "masters/mondomaine.zone";
+    };
+```
+Créer le fichier de zone
+```bash
+sudo mkdir -p /var/named/masters
+sudo cp /var/named/named.empty /var/named/masters/mondomaine.zone
+```
+:::tip Astuce
+Le fichier de zone doit se terminer par `.zone` et doit être placé dans le répertoire `/var/named/masters/`
+:::
+
+#### Faire en sorte que le service `named` puisse lire le fichier de zone
+Dans cette configuration, seul root peux modifier le fichier de zone, mais le service `named` peut le lire.
+```bash
+sudo chown -R root:named /var/named/masters/
+```
+:::danger Attention
+named:named = MAJ  à distance autorisée
+
+root:named = MAJ à distance interdite
+:::
+
+#### Exemple de fichier de zone
+`/var/named/masters/mondomaine.zone`
+```bash
+$ORIGIN mon.domain.
+$TTL 3600
+@		IN	SOA	dmz.mon.domain. contact.fake. (
+                                        2024012501
+                                        4H
+                                        1H             
+                                        1W
+                                        3H )
+@       IN	NS	dmz.mon.domain.
+@		IN	MX 10	mail.mon.domain.
+; IP
+dmz	    IN	A	172.16.143.211
+web	    IN	A	172.16.143.214
+mail	IN	A	172.16.143.216
+; CNAME
+portail	IN	CNAME	web
+dns1	IN	CNAME	dmz
+```                 
+### Créer une zone DNS secondaire
+
+#### Sur le serveur primaire
+Tout d'abord il faut "autoriser" le serveur secondaire dans la configuration.
+
+Ajouter les lignes suivantes dans le fichier de configuration `/etc/named.conf` du serveur primaire:
+
+```bash
+    zone "mondomaine.local" IN {
+            type master;
+            file "masters/mondomaine.local.zone";
+            allow-transfer { @ip_serveur_secondaire; };
+```
+
+Ajouter l'enregistrement NS dans votre zone:
+```bash
+@       IN	NS	serveur_secondaire.mondomaine.
+serveur_secondaire    IN	A	@ip_serveur_secondaire
+```
+Redémarrer le service `named` sur le serveur primaire `sudo systemctl restart named`
+
+#### Sur le serveur secondaire
+Ajouter les lignes suivantes dans le fichier de configuration `/etc/named.conf` du serveur secondaire:
+
+```bash
+    zone "mondomaine.local" IN {
+            type slave;
+            file "slaves/mondomaine.local.zone";
+            masters { @ip_serveur_primaire; };
+    };
+```
+
+Redémarrer le service `named` sur le serveur secondaire `sudo systemctl restart named`.
+
+#### Vérifier le fonctionnement
+Sur le serveur secondaire, vérifier que la zone a bien été copiée:
+
+```bash
+sudo ls -l /var/named/slaves/
+```
+
+### Ajouter un redirecteur conditionnel (forwarder)
+Ajouter les lignes suivantes dans le fichier de configuration `/etc/named.conf`
+
+```bash
+zone "domain.voisin" IN {
+	type forward;
+	forwarders { @IP_serveurvoisin; };
+};
+```
+
+Redémarrer le service `named` sur le serveur `sudo systemctl restart named`
+
+### Indication de racine
+Ajouter les lignes suivantes dans le fichier de configuration `/etc/named.conf`
+
+```bash
+    zone "." IN {
+            type hint;
+            file "named.ca";
+    };
+```
+Puis editer le fichier `/var/named/named.ca` et y coller inserer les serveurs racines.
+
+```bash
+.                        3600000      IN      NS      <FQDN>
+<FQDN>        3600000      IN      A   <ADRESSE_IP>
+```
+
+Retirer les serveurs racines inutiles.
+
+Redémarrer le service `named` sur le serveur `sudo systemctl restart named`
