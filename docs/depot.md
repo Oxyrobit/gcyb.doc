@@ -1,7 +1,7 @@
 ---
 sidebar_position: 3
 ---
-# Packets et depôt
+# Paquets et depôt
 
 ## Intérroger la base de données des logiciels
 

@@ -36,6 +36,6 @@ Redémarrer le service `NetworkManager` sur le serveur `sudo systemctl restart N
 ### Vérification
 ```bash
 sudo nmcli device show
-nmcli device disconnect eth0 # Déconnecter eth0
-nmcli device connect eth0 # Reconnecter eth0
+sudo nmcli device disconnect eth0 # Déconnecter eth0
+sudo nmcli device connect eth0 # Reconnecter eth0
 ```
