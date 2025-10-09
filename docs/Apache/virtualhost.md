@@ -155,8 +155,8 @@ Ouvrir le fichier de configuration du site et ajouter
     ErrorLog /journaux/monSite/error_log
     CustomLog /journaux/monSite/access_log combined
 
-    Alias /logs /journaux/SiteJaune/
-    <Directory /journaux/SiteJaune/>
+    Alias /logs /journaux/monSite/
+    <Directory /journaux/monSite/>
         Require all denied
         Require ip ip_de_votre_station_d'admin
         Options Indexes
