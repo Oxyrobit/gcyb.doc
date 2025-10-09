@@ -44,7 +44,7 @@ const config: Config = {
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           editUrl:
-            'https://github.com/Oxyrobit/gcyb.doc/tree/dev/docs/',
+            'https://github.com/Oxyrobit/gcyb.doc/tree/dev/',
         },
         blog: {
           showReadingTime: true,
@@ -55,7 +55,7 @@ const config: Config = {
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           editUrl:
-            'https://github.com/Oxyrobit/gcyb.doc/tree/dev/docs/blog/',
+            'https://github.com/Oxyrobit/gcyb.doc/tree/dev/',
           // Useful options to enforce blogging best practices
           onInlineTags: 'warn',
           onInlineAuthors: 'warn',
