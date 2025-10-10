@@ -2,7 +2,7 @@
 sidebar_position: 4
 ---
 
-# Configuration sécuriser
+# Configuration sécurisée
 
 ### Générer un certificat SSL
 
@@ -13,12 +13,13 @@ sudo dnf install openssl
 #### Générer une clé privé
 
 ```bash
-openssl genrsa -out /etc/pki/tls/private/macle.key
+sudo openssl genrsa -out /etc/pki/tls/private/macle.key
 ```
 
 #### Créer un fichier template
 
 Exemple: Je veux certifier les sites: `secure.monsite.domaine` et `site_https.monsite.domaine`
+
 Créer le fichier `vim fic_reponse.conf`
 
 ```conf
@@ -43,12 +44,12 @@ IP = <IP> # Ligne a supprimer si pas utilisé
 Grâce au fichier `fic_reponse.conf`
 
 ```bash
-openssl req -key /etc/pki/tls/private/macle.key -new -sha256 -out mondomaine.csr -config fic_reponse.conf
+sudo openssl req -key /etc/pki/tls/private/macle.key -new -sha256 -out mondomaine.csr -config fic_reponse.conf
 ```
 
 Vérifier la demande de certificat
 ```bash
-opensssl req -text -noout -verify -in mondomaine.csr
+sudo openssl req -text -noout -verify -in mondomaine.csr
 ```
 
 #### Téléverser ma demande de certificat
