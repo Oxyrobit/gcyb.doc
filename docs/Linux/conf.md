@@ -16,7 +16,7 @@ Editer le fichier `/etc/host`
 
 ## Adressage IP
 ```bash
-sudo vim /etc/sysconfig/network-scripts/
+sudo vi /etc/sysconfig/network-scripts/
 ```
 
 Editer le fichier correspondant à l'interface à modifier

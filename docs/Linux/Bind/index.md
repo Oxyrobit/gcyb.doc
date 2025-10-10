@@ -1,7 +1,7 @@
 ---
-sidebar_position: 1
+sidebar_position: 6
 ---
-# Installation
+# Bind
 
 Installer Bind: 
 ```bash

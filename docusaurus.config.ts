@@ -83,7 +83,7 @@ const config: Config = {
       items: [
         {
           type: 'docSidebar',
-          sidebarId: 'tutorialSidebar',
+          sidebarId: 'linux',
           position: 'left',
           label: 'Linux',
         },
