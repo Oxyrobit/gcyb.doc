@@ -136,7 +136,7 @@ Ouvrir le fichier de configuration du site et ajouter
 <VirtualHost IP_INT_de_votre_serveur:80>
     ...
     ErrorLog /journaux/monSite/error_log
-    CustomLog /journaux/monSite/access_log combined
+    CustomLog /journaux/monSite/access_log <combined | common>
     ...
 </VirtualHost>
 ```
