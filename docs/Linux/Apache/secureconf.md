@@ -1,5 +1,6 @@
 ---
 sidebar_position: 4
+slug: ssl
 ---
 
 # Configuration sécurisée

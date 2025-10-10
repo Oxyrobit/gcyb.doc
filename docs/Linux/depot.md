@@ -20,7 +20,7 @@ sudo rpm -e paquet # Désinstaller
 
 #### Désactivation du message de subscription-manager
 ```bash
-sudo vim /etc/yum/pluginconf.d/subscription-manager.conf
+sudo vi /etc/yum/pluginconf.d/subscription-manager.conf
 
 [main]
 enabled=0

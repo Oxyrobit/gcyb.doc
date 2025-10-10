@@ -1,5 +1,6 @@
 ---
 sidebar_position: 3
+slug: hosts
 ---
 # Virtual Hosts
 Tout d'abord, vérifier qu'Apache puis accéder aux fichiers de vos sites.
