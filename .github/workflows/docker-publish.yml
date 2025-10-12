@@ -68,3 +68,24 @@ jobs:
           DIGEST: ${{ steps.build.outputs.digest }}
         run: |
           echo "$TAGS" | xargs -I {} cosign sign --yes {}@${DIGEST}
+          
+      - name: Pull latest image on Portainer server
+        env:
+          PORTAINER_URL: ${{ secrets.PORTAINER_URL }}             
+          PORTAINER_API_KEY: ${{ secrets.PORTAINER_API_KEY }}      
+          PORTAINER_ENDPOINT_ID: ${{ secrets.PORTAINER_ENDPOINT_ID }} 
+          PORTAINER_CONTAINER_ID: ${{ secrets.PORTAINER_CONTAINER_ID }}
+          IMAGE_NAME: ghcr.io/oxyrobit/gcyb.doc
+          IMAGE_TAG: latest
+        run: |
+          echo "Pulling new image on Portainer host..."
+          curl -fsSL -X POST \
+            -H "X-API-Key: ${PORTAINER_API_KEY}" \
+            "${PORTAINER_URL}/api/endpoints/${PORTAINER_ENDPOINT_ID}/docker/images/create?fromImage=${IMAGE_NAME}&tag=${IMAGE_TAG}"
+
+          echo "Restarting container..."
+          curl -fsSL -X POST \
+            -H "X-API-Key: ${PORTAINER_API_KEY}" \
+            "${PORTAINER_URL}/api/endpoints/${PORTAINER_ENDPOINT_ID}/docker/containers/${PORTAINER_CONTAINER_ID}/restart?t=10"
+
+          echo "✅ Image pulled and container restarted successfully."
