@@ -1,5 +1,12 @@
 # SELINUX
 
+### Commandes
+
+```bash
+sestatus
+getenforce
+setenforce 0|1
+```
 
 ## Desactiver SELinux
 
@@ -22,8 +29,20 @@ Connaitre le contexte par defaut `matchpathcon`
 sudo matchpathcon /home
 ```
 
-### Modifier un contexte
+### Modifier/Restaurer le contexte d'un répertoire
 
+Modifier:
 ```bash
 sudo chcon -vR -t httpd_sys_content_t /travail/web
+```
+
+Restaurer:
+```bash
+sudo restorecon -R /travail/web
+```
+
+### Autoriser un port sur SELinux
+
+```bash
+sudo semanage port -a -t http_port_t -p tcp 8080
 ```
