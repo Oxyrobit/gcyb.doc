@@ -4,7 +4,7 @@
 
 Installer Samba: 
 ```bash
-sudo dnf install samba ou samba-client
+sudo dnf install samba
 ```
 
 
@@ -28,7 +28,7 @@ sudo testparm
 
 `/etc/samba/smb.conf`
 
-Configuration minimum
+### Configuration minimum
 ````
 [global]
     netbios name = NOM_STAGIAIRE
@@ -38,8 +38,50 @@ Configuration minimum
     hosts allow = 10.0.0.
 ````
 
-Activer le partage de fichier
+Redemarer les service `smb` et `nmb`
+
+```bash
+sudo systemctl restart smb
+sudo systemctl restart nmb
 ```
+
+## Gestion des utilisateurs
+
+#### Ajouter un utilisateur
+
+Il est impératif de créer un utilisateur système **avant** de créer un utilisateur `smb`
+
+```bash
+sudo useradd -u <UID> -s /sbin/nologin <user>
+```
+
+Ensuite créer l'utilisateur avec `pdbedit`
+```bash
+pdbedit -a -u <user> -f "Nom Complet (facultatif)"
+```
+*Le mot de passe renseigné sera celui utilisateur par vos utilisateurs de Samba.*
+
+**Actions sur l'utilisateur Samba dejà existant**
+```bash
+smbpasswd bob 
+    -d Désactiver un compte
+    -e reactiver un compte
+    -a Ajout compte + mdp à la bdd
+```
+
+## SE Linux
+
+Partager les répertoires de connexion des utilisateurs
+
+```bash
+setsebool -P samba_enable_home_dirs on
+```
+
+### Activer le partage de fichier
+
+Créer un espace commun pour certains utilisateur
+
+```bash
 [partage]
     comment = Partage de fichier pour tous
 
@@ -67,38 +109,30 @@ Activer le partage de fichier
     force group = users 
 ```
 
-:::danger Attention
-    Ne pas oublier
+:::danger Ne pas oublier
     Owner `sudo chown root:[groupe forcer] /export/`
     UGO: `sudo chmod -R 770 /export/`
     SE Linux `sudo chcon -vR -t samba_share_t /export/`
 :::
 
-## Gestion des utilisateurs
+Redemarer les service `smb` et `nmb`
 
 ```bash
-pdbedit -a -u bob -f "Bob Leponge"
-pdbedit -L
-
-smbpasswd bob 
-    -d Désactiver un compte
-    -e reactiver un compte
-    -a Ajout compte + mdp à la bdd
+sudo systemctl restart smb
+sudo systemctl restart smb
 ```
 
-## SE Linux
 
-Partager les répertoires de connexion des utilisateurs
+# Samba client
 
-```
-setsebool -P samba_enable_home_dirs on
-```
+Installer Samba: 
+```bash
+sudo dnf install samba-client
+``` 
 
-## Coté client 
-
-```
+```bash
 # Windows
 smbclient -L //srvpartage/ -U pascal
-# linux
+# Linux
 smbclient //srvsamba/nom_du_partage -U alain
 ```
