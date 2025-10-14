@@ -1,3 +1,7 @@
+---
+slug: selinux
+title: Se Linux
+---
 # SELINUX
 
 ### Commandes

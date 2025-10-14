@@ -1,3 +1,8 @@
+---
+slug: samba
+title: Samba
+---
+
 # Samba 4
 
 ## Installation
