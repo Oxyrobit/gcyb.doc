@@ -87,6 +87,12 @@ const config: Config = {
           position: 'left',
           label: 'Linux',
         },
+        {
+          type: 'docSidebar',
+          sidebarId: 'reseau',
+          position: 'left',
+          label: 'Réseau',
+        },
         {to: '/blog', label: 'Blog', position: 'left'},
         {
           href: 'https://github.com/Oxyrobit/gcyb.doc',
