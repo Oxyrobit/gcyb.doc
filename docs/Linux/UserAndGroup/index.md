@@ -34,3 +34,36 @@ sudo useradd -u 1000 -g 1013 –d /home/esi/o.truche  o.truche
 sudo usermod –aG terre,etnc d.luge 
 ```
 ## Groupes
+
+La gestion des groupes se fait grâce aux fichiers `/etc/group` et `/etc/gshadow`
+
+### Commande: groupadd
+
+```bash
+groupadd -g 1000 GroupeUtilisateurs
+    -g : Précise le GID du groupe
+```
+
+### Commande: groupmod
+
+```bash
+groupmod -g 1001 -n GroupeUser
+    -g : Précise le nouveau GID du groupe
+    -n : Précise le nouveau nom du groupe
+```
+
+### Commande: groupdel
+```bash
+groupdel -f GroupeUser
+    -f : Force la suppression du groupe, même si un utilisateur a le groupe comme groupe principal
+```
+
+### Commande: gpasswd
+```bash
+gpasswd -A GroupeAdmin -a admin-p.nom -d admin-old -M invité1
+    -A : Définit l’administrateur du groupe
+    -a : Ajoute l’utilisateur au groupe
+    -d : Retire l’utilisateur du groupe
+    -M : Définit la liste exhaustive des invités
+```
+
