@@ -36,7 +36,9 @@ sudo testparm
 ## Configuration
 
 Fichier : `/etc/samba/smb.conf`
-
+```bash
+sudo vi /etc/samba/smb.conf
+```
 ### Configuration minimale
 
 ```ini
@@ -108,7 +110,10 @@ sudo setsebool -P samba_enable_home_dirs on
 ```
 
 ### Exemple de partage de fichiers
-
+Fichier : `/etc/samba/smb.conf`
+```bash
+sudo vi /etc/samba/smb.conf
+```
 Créer un espace commun pour certains utilisateurs :
 
 ```ini
