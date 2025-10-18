@@ -129,6 +129,9 @@ Créer un espace commun pour certains utilisateurs :
     directory mask = 0775
     force group = users
 ```
+```bash
+mkdir -p /export/data
+```
 
 Ne pas oublier :
 
