@@ -61,10 +61,18 @@ sudo systemctl restart nmb
 
 ### Ajouter un utilisateur
 
-Il est impératif de créer un utilisateur système **avant** de créer l'utilisateur Samba :
+Il est impératif de créer un utilisateur et son groupe (**users** pour l'exemple) système **avant** de créer l'utilisateur Samba :
+
+```bash
+sudo groupadd users
+```
 
 ```bash
 sudo useradd -u <UID> -s /sbin/nologin <user>
+```
+
+```bash
+sudo usermod -g users <user>
 ```
 
 Ensuite, ajouter l'utilisateur Samba (exemples) :
