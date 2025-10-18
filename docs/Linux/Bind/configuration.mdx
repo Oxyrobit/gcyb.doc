@@ -23,13 +23,13 @@ Ajouter ou modifier les lignes suivantes dans le fichier de configuration `/etc/
             #Remplacer @ip_reseau par le réseau autorisé à faire des requêtes
             allow-query { @ip_reseau/CIDR; }; # Mettre ' any; ' pour autoriser tout le monde
 
-            # Activer le mode récursif
+            # Activer cette option pour permet au serveur de contacter le serveurs racines
             recursion yes;
 
             # Désactiver les transferts de zone (bonne pratique de sécurité)
         	allow-transfer { none; };
 
-            # Serveurs DNS vers lesquels les requêtes seront redirigées
+            # Serveurs DNS vers lesquels les requêtes seront redirigées (mettre la recursion à no)
             forwarders {
                     172.16.160.201;
                     172.16.160.202;
