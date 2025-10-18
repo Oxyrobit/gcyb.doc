@@ -3,47 +3,52 @@ slug: samba
 title: Samba
 ---
 
+
 # Samba 4
 
 ## Installation
 
-Installer Samba: 
+Installer Samba :
+
 ```bash
 sudo dnf install samba
 ```
 
+Autoriser le pare-feu :
 
-Autoriser les accès au pare-feu
 ```bash
 sudo firewall-cmd --add-service=samba --permanent
-
 sudo firewall-cmd --reload
 ```
 
-Démarrage automatique du service
+Activer et démarrer le service Samba :
+
 ```bash
 sudo systemctl enable smb --now
 ```
 
-Tester la configuration
+Vérifier la configuration Samba :
+
 ```bash
 sudo testparm
 ```
+
 ## Configuration
 
-`/etc/samba/smb.conf`
+Fichier : `/etc/samba/smb.conf`
 
-### Configuration minimum
-````
+### Configuration minimale
+
+```ini
 [global]
     netbios name = NOM_STAGIAIRE
     security = USER
-    server string = Serveur de fichiers samba %v
+    server string = Serveur de fichiers Samba %v
     workgroup = ETNC
-    hosts allow = 10.0.0.
-````
+    hosts allow = 10.0.0.0/24
+```
 
-Redemarer les service `smb` et `nmb`
+Redémarrer les services `smb` et `nmb` :
 
 ```bash
 sudo systemctl restart smb
@@ -52,92 +57,120 @@ sudo systemctl restart nmb
 
 ## Gestion des utilisateurs
 
-#### Ajouter un utilisateur
+### Ajouter un utilisateur
 
-Il est impératif de créer un utilisateur système **avant** de créer un utilisateur `smb`
+Il est impératif de créer un utilisateur système **avant** de créer l'utilisateur Samba :
 
 ```bash
 sudo useradd -u <UID> -s /sbin/nologin <user>
 ```
 
-Ensuite créer l'utilisateur avec `pdbedit`
-```bash
-pdbedit -a -u <user> -f "Nom Complet (facultatif)"
-```
-*Le mot de passe renseigné sera celui utilisateur par vos utilisateurs de Samba.*
+Ensuite, ajouter l'utilisateur Samba (exemples) :
 
-**Actions sur l'utilisateur Samba dejà existant**
+Avec pdbedit :
+
 ```bash
-smbpasswd bob 
-    -d Désactiver un compte
-    -e reactiver un compte
-    -a Ajout compte + mdp à la bdd
+sudo pdbedit -a -u <user> -f "Nom Complet (facultatif)"
 ```
 
-## SE Linux
-
-Partager les répertoires de connexion des utilisateurs
+Avec smbpasswd :
 
 ```bash
-setsebool -P samba_enable_home_dirs on
+sudo smbpasswd -a <user>
 ```
 
-### Activer le partage de fichier
+Le mot de passe renseigné sera celui utilisé par les utilisateurs Samba.
 
-Créer un espace commun pour certains utilisateur
+Actions sur un utilisateur Samba déjà existant :
+
+- Désactiver un compte :
 
 ```bash
+sudo smbpasswd -d <user>
+```
+- Réactiver un compte :
+
+```bash
+sudo smbpasswd -e <user>
+```
+- Ajouter un compte (ajout + mot de passe) :
+
+```bash
+sudo smbpasswd -a <user>
+```
+
+## SELinux
+
+Partager les répertoires personnels des utilisateurs :
+
+```bash
+sudo setsebool -P samba_enable_home_dirs on
+```
+
+### Exemple de partage de fichiers
+
+Créer un espace commun pour certains utilisateurs :
+
+```ini
 [partage]
-    comment = Partage de fichier pour tous
-
-    # Autorise l'écriture sur le partage
-    writeable = yes
-
-    # Chemin absolu
+    comment = Partage de fichiers pour certains utilisateurs
+    writable = yes
     path = /export/data
-
-    # utilisateur, [user, groupe utilisateur systeme]
     valid users = bob, @users
-
     invalid users = alice
-
-    # Définis qui peux lire
     read list = bob
-
-    # définis qui peux écrire
     write list = patrick, alain
-
     create mask = 0664
     directory mask = 0775
-    
-    # Groupe d'appartenance des nouveaux fichiers
-    force group = users 
+    force group = users
 ```
 
-:::danger Ne pas oublier
-    Owner `sudo chown root:[groupe forcer] /export/`
-    UGO: `sudo chmod -R 770 /export/`
-    SE Linux `sudo chcon -vR -t samba_share_t /export/`
-:::
+Ne pas oublier :
 
-Redemarer les service `smb` et `nmb`
+- Propriété du répertoire :
+
+```bash
+sudo chown root:users /export/
+```
+- Permissions :
+
+```bash
+sudo chmod -R 770 /export/
+```
+- Contexte SELinux pour le partage Samba :
+
+```bash
+sudo chcon -vR -t samba_share_t /export/
+```
+
+Redémarrer les services Samba :
 
 ```bash
 sudo systemctl restart smb
-sudo systemctl restart smb
+sudo systemctl restart nmb
 ```
 
+## Client Samba
 
-# Samba client
+Installer le client Samba :
 
-Installer Samba: 
 ```bash
 sudo dnf install samba-client
-``` 
+```
+
+Exemples d'utilisation :
+
+- Lister les partages d'un serveur :
 
 ```bash
-# Windows
 smbclient -L //srvpartage/ -U pascal
-# Linux
+```
+
+- Se connecter à un partage :
+
+```bash
 smbclient //srvsamba/nom_du_partage -U alain
 ```
+
+Remarque : selon la distribution, les unités systemd peuvent s'appeler `smb.service` / `nmb.service` ou `samba.service`.
+
