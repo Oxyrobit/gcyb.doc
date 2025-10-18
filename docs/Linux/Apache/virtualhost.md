@@ -37,14 +37,14 @@ Redémarer le service Apache[^1]
 Exemple: je veux publier mon site sur `http://172.0.0.2:1664`
 
 **Pré-requis:**
+- [ ] Ajouter le contexte SE Linux `sudo semanage port -a -t http_port_t -p tcp 1664`[^6]
 - [ ] Ouvrir le port 1664 `sudo firewall-cmd --add-port=1664/tcp --permanent`
 - [ ] Recharger la configuration du pare-feu `sudo firewall-cmd --reload`
-- [ ] Vérifier que le port est bien en écoute `sudo ss -putan`
-- [ ] Ajouter `Listen 1664` dans le fichier de configuation Apache[^2]
 
 **Configuration:**
 
 ```bash
+Listen 1664
 <VirtualHost IP_INT_de_votre_serveur:1664>
     DocumentRoot /var/www/html/SiteVert
     DirectoryIndex IndexVert.htm
@@ -54,6 +54,7 @@ Exemple: je veux publier mon site sur `http://172.0.0.2:1664`
 </VirtualHost>
 ```
 Redémarer le service Apache[^1]
+Vérifier que le port est bien en écoute `sudo ss -putan`
 
 ### Publier un site grace à un FQDN
 
@@ -171,4 +172,5 @@ Redémarer le service Apache[^1]
 [^3]: `sudo systemctl restart named`
 [^4]: `sudo vim /var/named/masters/`
 [^5]: `sudo vim /etc/httpd/conf.d/`
+[^6]: `sudo dnf install policycoreutils-python-utils-2.9-3.el8.noarch`
 

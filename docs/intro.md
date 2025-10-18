@@ -1,1 +1,0 @@
-Juste une page d'acceuil en cours de construction

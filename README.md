@@ -6,37 +6,62 @@ This website is built using [Docusaurus](https://docusaurus.io/), a modern stati
 ## Installation
 
 ```bash
-yarn
+npm ci
 ```
 
 ## Local Development
 
 ```bash
-yarn start
+npm run start 
+## ou 
+npm run start -- --poll 1000 # WSL
 ```
 
-This command starts a local development server and opens up a browser window. Most changes are reflected live without having to restart the server.
+# Contribuer au projet
 
-## Build
+Ce guide explique comment contribuer au projet en utilisant un **fork** et une **pull request**.
+
+## 1. Forker le dépôt
+
+1. Cliquez sur le bouton **Fork** (en haut à droite).
+2. Cela créera une copie du projet dans votre propre espace GitHub.
+
+## 2. Cloner votre fork en local
+
+Dans votre terminal :
 
 ```bash
-yarn build
+git clone https://github.com/<votre-nom-utilisateur>/<nom-du-projet>.git
+cd <nom-du-projet>
 ```
 
-This command generates static content into the `build` directory and can be served using any static contents hosting service.
+## 3. Apporter vos modifications
 
-## Deployment
+- La documentation ce trouve dans `/docs`
+- Testez vos changements avant de les valider.
 
-Using SSH:
+## 4. Valider et pousser les changements
 
 ```bash
-USE_SSH=true yarn deploy
+git add .
+git commit -m "Description claire de la modification"
+git push origin ma-branche-de-travail
 ```
 
-Not using SSH:
+## 5. Créer une Pull Request (PR)
 
-```bash
-GIT_USER=<Your GitHub username> yarn deploy
-```
+1. Allez sur votre dépôt forké sur GitHub.
+2. Cliquez sur **Compare & pull request**.
+3. Vérifiez que la base est bien le **projet original** et la branche `dev`.
+4. Décrivez vos changements puis soumettez la **Pull Request**.
 
-If you are using GitHub pages for hosting, this command is a convenient way to build the website and push to the `gh-pages` branch.
+## 6. Attendre la revue
+
+Les mainteneurs du projet examineront votre PR.  
+Ils pourront :
+- approuver et fusionner vos modifications ;
+- ou demander des ajustements.
+
+Soyez patient, et mettez à jour la PR si besoin.
+
+
