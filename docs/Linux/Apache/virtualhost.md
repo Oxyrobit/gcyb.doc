@@ -130,7 +130,7 @@ Exemple: je veux que les logs de mon site soit stocker dans `/journaux/MonSite/`
 **Pré-requis**
 - [ ] Creer le répertoire de logs `sudo mkdir -p /journaux/MonSite/`
 - [ ] Autoriser Apache à écrire dans ce répertoire `sudo chown -R :apache /journaux` et `sudo chmod 750 /journaux/`
-- [ ] Appliquer le contexte Se Linux `sudo chcon -vR -t httpd_sys_content_t /journaux/`
+- [ ] Appliquer le contexte Se Linux `sudo chcon -vR -t httpd_log_t /journaux/`
 
 **Configuration:**
 Ouvrir le fichier de configuration du site et ajouter
