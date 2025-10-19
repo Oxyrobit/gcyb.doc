@@ -82,16 +82,26 @@ const config: Config = {
       },
       items: [
         {
-          type: 'docSidebar',
-          sidebarId: 'linux',
+          type: 'dropdown',
+          label: 'Admin Sys & Réseau',
           position: 'left',
-          label: 'Linux',
-        },
-        {
-          type: 'docSidebar',
-          sidebarId: 'reseau',
-          position: 'left',
-          label: 'Réseau',
+          items: [
+              {
+                type: 'docSidebar',
+                sidebarId: 'linux',
+                label: 'Linux',
+              },
+              {
+                type: 'docSidebar',
+                sidebarId: 'reseau',
+                label: 'Réseau',
+              },
+              {
+                type: 'docSidebar',
+                sidebarId: 'windows',
+                label: 'Windows',
+              },
+          ],
         },
         {
           href: 'https://github.com/Oxyrobit/gcyb.doc',
