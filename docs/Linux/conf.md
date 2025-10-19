@@ -21,6 +21,12 @@ sudo vi /etc/sysconfig/network-scripts/
 
 Editer le fichier correspondant à l'interface à modifier
 
+:::danger
+
+Ajouter uniquement une Gateway a l'interface **externe**
+
+:::
+
 ```bash
 DEVICE=eth<X>
 ONBOOT=yes
