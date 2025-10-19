@@ -16,7 +16,7 @@ Editer le fichier `/etc/host`
 
 ## Adressage IP
 ```bash
-sudo vi /etc/sysconfig/network-scripts/
+sudo vi /etc/sysconfig/network-scripts/ifcg-ethX
 ```
 
 Editer le fichier correspondant à l'interface à modifier
@@ -28,9 +28,9 @@ Ajouter uniquement une Gateway a l'interface **externe**
 :::
 
 ```bash
+BOOTPROTO=static
 DEVICE=eth<X>
 ONBOOT=yes
-BOOTPROTO=static
 IPADDR=<IP>
 NETMASK=<MASQUE COMPLET>
 GATEWAY=<IP PASSERELLE>

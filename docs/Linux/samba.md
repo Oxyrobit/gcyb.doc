@@ -36,7 +36,9 @@ sudo testparm
 ## Configuration
 
 Fichier : `/etc/samba/smb.conf`
-
+```bash
+sudo vi /etc/samba/smb.conf
+```
 ### Configuration minimale
 
 ```ini
@@ -59,10 +61,18 @@ sudo systemctl restart nmb
 
 ### Ajouter un utilisateur
 
-Il est impératif de créer un utilisateur système **avant** de créer l'utilisateur Samba :
+Il est impératif de créer un utilisateur et son groupe (**users** pour l'exemple) système **avant** de créer l'utilisateur Samba :
+
+```bash
+sudo groupadd users
+```
 
 ```bash
 sudo useradd -u <UID> -s /sbin/nologin <user>
+```
+
+```bash
+sudo usermod -g users <user>
 ```
 
 Ensuite, ajouter l'utilisateur Samba (exemples) :
@@ -108,7 +118,10 @@ sudo setsebool -P samba_enable_home_dirs on
 ```
 
 ### Exemple de partage de fichiers
-
+Fichier : `/etc/samba/smb.conf`
+```bash
+sudo vi /etc/samba/smb.conf
+```
 Créer un espace commun pour certains utilisateurs :
 
 ```ini
@@ -123,6 +136,9 @@ Créer un espace commun pour certains utilisateurs :
     create mask = 0664
     directory mask = 0775
     force group = users
+```
+```bash
+mkdir -p /export/data
 ```
 
 Ne pas oublier :

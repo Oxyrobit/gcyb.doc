@@ -3,7 +3,7 @@ sidebar_position: 3
 slug: hosts
 ---
 # Virtual Hosts
-Tout d'abord, vérifier qu'Apache puis accéder aux fichiers de vos sites.
+Tout d'abord, vérifier qu'Apache puis accéder aux fichiers de vos sites. Dans **/var/www/html/** copier le site donné avec **cp** ou créer un fichier index.html puis redonner les droits :
 
 ```bash
 # Ici on admet que tout nos sites sont stocker dans /var/www/html/
@@ -22,6 +22,10 @@ sudo ls -l /etc/httpd/conf.d/
 
 Exemple: je veux publier mon site sur `http://172.0.0.2`
 
+```bash
+sudo vim /etc/httpd/conf.d/monsite.conf
+```
+
 ```conf
 <VirtualHost IP_de_votre_serveur:80>
     DocumentRoot /var/www/html/SiteJaune
@@ -36,15 +40,21 @@ Redémarer le service Apache[^1]
 
 Exemple: je veux publier mon site sur `http://172.0.0.2:1664`
 
+**Installer semanage :**
+
+```bash
+sudo dnf install policycoreutils-python-utils
+```
+
 **Pré-requis:**
+- [ ] Ajouter le contexte SE Linux `sudo semanage port -a -t http_port_t -p tcp 1664`[^6]
 - [ ] Ouvrir le port 1664 `sudo firewall-cmd --add-port=1664/tcp --permanent`
 - [ ] Recharger la configuration du pare-feu `sudo firewall-cmd --reload`
-- [ ] Vérifier que le port est bien en écoute `sudo ss -putan`
-- [ ] Ajouter `Listen 1664` dans le fichier de configuation Apache[^2]
 
 **Configuration:**
 
 ```bash
+Listen 1664
 <VirtualHost IP_INT_de_votre_serveur:1664>
     DocumentRoot /var/www/html/SiteVert
     DirectoryIndex IndexVert.htm
@@ -54,6 +64,7 @@ Exemple: je veux publier mon site sur `http://172.0.0.2:1664`
 </VirtualHost>
 ```
 Redémarer le service Apache[^1]
+Vérifier que le port est bien en écoute `sudo ss -putan`
 
 ### Publier un site grace à un FQDN
 
@@ -99,6 +110,21 @@ Redémarer le service Apache[^1]
 
 Exemple: je veux publier le site de maintenance qui sera accessible grâce à un alias `www.orange.domaine/Maintenance`
 
+Crér un nouveau dossier pour le site de maintenance et y copier le site de maintenance :
+
+```bash
+mkdir /var/www/hmtl/maintenance 
+```
+
+Modifier les droits :
+
+```bash
+sudo chown -R :apache /var/www/hmtl/maintenance 
+sudo chmod 750 /var/www/hmtl/maintenance
+```
+
+Retourner dans votre fichier de configuration **/etc/httpd/conf.d/monsite.conf**
+
 **Je dois**
 - [ ] Ajouter `maintenance.html` dans `DirectoryIndex`
 - [ ] Ajouter l'`Alias` 
@@ -124,14 +150,15 @@ Redémarer le service Apache[^1]
 
 ### Ajouter des logs à mon site
 
-Exemple: je veux que les logs de mon site soit stocker dans `/journaux/MonSite/`
+Exemple: je veux que les logs de mon site soit stocker dans `/journaux/monSite/`
 
 **Pré-requis**
-- [ ] Creer le répertoire de logs `sudo mkdir -p /journaux/MonSite/`
+- [ ] Creer le répertoire de logs `sudo mkdir -p /journaux/monSite/`
 - [ ] Autoriser Apache à écrire dans ce répertoire `sudo chown -R :apache /journaux` et `sudo chmod 750 /journaux/`
+- [ ] Appliquer le contexte Se Linux `sudo chcon -vR -t httpd_log_t /journaux/`
 
 **Configuration:**
-Ouvrir le fichier de configuration du site et ajouter
+Ouvrir le fichier de configuration du site et ajouter 
 
 ```conf
 <VirtualHost IP_INT_de_votre_serveur:80>
@@ -149,7 +176,6 @@ Exemple: je veux publier les logs de mon site sur `http://monsite/logs`
 
 **Configuration:**
 Ouvrir le fichier de configuration du site et ajouter
-
 ```conf
 <VirtualHost IP_INT_de_votre_serveur:80>
     ...
@@ -171,4 +197,5 @@ Redémarer le service Apache[^1]
 [^3]: `sudo systemctl restart named`
 [^4]: `sudo vim /var/named/masters/`
 [^5]: `sudo vim /etc/httpd/conf.d/`
+[^6]: `sudo dnf install policycoreutils-python-utils-2.9-3.el8.noarch`
 
