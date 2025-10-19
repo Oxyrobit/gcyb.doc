@@ -21,6 +21,12 @@ sudo vi /etc/sysconfig/network-scripts/ifcg-ethX
 
 Editer le fichier correspondant à l'interface à modifier
 
+:::danger
+
+Ajouter uniquement une Gateway a l'interface **externe**
+
+:::
+
 ```bash
 BOOTPROTO=static
 DEVICE=eth<X>
