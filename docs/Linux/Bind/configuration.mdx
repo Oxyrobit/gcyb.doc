@@ -23,7 +23,7 @@ Ajouter ou modifier les lignes suivantes dans le fichier de configuration `/etc/
             #Remplacer @ip_reseau par le réseau autorisé à faire des requêtes
             allow-query { @ip_reseau/CIDR; }; # Mettre ' any; ' pour autoriser tout le monde
 
-            # Activer cette option pour permet au serveur de contacter le serveurs racines
+            # Activer cette option pour permettre au serveur de contacter le serveurs racines ou ses forwarders
             recursion yes;
 
             # Désactiver les transferts de zone (bonne pratique de sécurité)
