@@ -17,19 +17,19 @@ Ajouter ou modifier les lignes suivantes dans le fichier de configuration `/etc/
 ```conf
     options {
             # Remplacer @ip_interface par l'ip de l'interface réseau
-            listen-on port 53 { @ip_interface; };
+            listen-on port 53 { @ip_interface; }; #Ne pas oublier 127.0.0.1
             directory "/var/named";
 
             #Remplacer @ip_reseau par le réseau autorisé à faire des requêtes
-            allow-query { @ip_reseau/CIDR; }; # Mettre ' any; ' pour autoriser tout le monde
+            allow-query { @ip_reseau/CIDR; }; # Mettre ' any; ' pour autoriser tout le monde et ne pas oublier 127.0.0.1
 
-            # Activer cette option pour permet au serveur de contacter le serveurs racines
+            # Activer cette option pour permettre au serveur de contacter le serveurs racines ou ses forwarders
             recursion yes;
 
             # Désactiver les transferts de zone (bonne pratique de sécurité)
         	allow-transfer { none; };
 
-            # Serveurs DNS vers lesquels les requêtes seront redirigées (mettre la recursion à no)
+            # Serveurs DNS vers lesquels les requêtes seront redirigées
             forwarders {
                     172.16.160.201;
                     172.16.160.202;
