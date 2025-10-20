@@ -113,14 +113,14 @@ Exemple: je veux publier le site de maintenance qui sera accessible grâce à un
 Crér un nouveau dossier pour le site de maintenance et y copier le site de maintenance :
 
 ```bash
-mkdir /var/www/hmtl/maintenance 
+mkdir /var/www/html/maintenance 
 ```
 
 Modifier les droits :
 
 ```bash
-sudo chown -R :apache /var/www/hmtl/maintenance 
-sudo chmod 750 /var/www/hmtl/maintenance
+sudo chown -R :apache /var/www/html/maintenance 
+sudo chmod 750 /var/www/html/maintenance
 ```
 
 Retourner dans votre fichier de configuration **/etc/httpd/conf.d/monsite.conf**
