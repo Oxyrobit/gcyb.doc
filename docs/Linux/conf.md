@@ -9,7 +9,7 @@ sidebar_position: 2
 sudo hostnamectl set-hostname fqdn
 ```
 
-Editer le fichier `/etc/host`
+Editer le fichier `/etc/hosts`
 ```
 <IP> 	<FQDN> <hostname>
 ```

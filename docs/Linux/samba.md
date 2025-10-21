@@ -25,6 +25,7 @@ Activer et démarrer le service Samba :
 
 ```bash
 sudo systemctl enable smb --now
+sudo systemctl enable nmb --now
 ```
 
 Vérifier la configuration Samba :
