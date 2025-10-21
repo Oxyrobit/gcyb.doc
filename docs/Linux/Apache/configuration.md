@@ -30,3 +30,9 @@ Affiche le server info uniquement pour une station.
     Require ip ip_de_votre_sation_admin
     </Location>
 ```
+
+#### Garder les connexion cliente
+```conf
+KeepAlive On
+KeepAliveTimeOut 10
+```
