@@ -37,6 +37,20 @@ $Var_2 = 'Bonjour'
 $Folders = Get-Item -Path "E:\TP-Ps"
 ```
 
+*Supprimer une variable*
+```powershell
+$var = $null
+```
+
+*Type de variable*
+```powershell
+[int]$var = 1
+[double]$var = 1,56
+[string]$var = "Bonjour"
+[bool]$var = 0 # [Bool] fonctionne egalement
+```
+Connaitre le type `$var.GetType()`
+
 ### Interaction avec la console
 
 *Affiche des données dans la console*
