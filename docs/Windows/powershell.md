@@ -26,3 +26,34 @@ Get-Process -Name s* | Select-Object ProcessName | Export-Csv "E:\rpt.csv"
 ```powershell
 Get-ChildItem -Path "E:\" -recurse | Select Name, PSIsContainer, Creationtime
 ```
+
+### Les variables
+
+```powershell
+$Variable = valeur
+# Uniquement a-zA-Z0-9 "_"
+$var1 = 12
+$Var_2 = 'Bonjour'
+$Folders = Get-Item -Path "E:\TP-Ps"
+```
+
+### Interaction avec la console
+
+*Affiche des données dans la console*
+```powershell
+Write-Host "Bonjour"
+Write-Host $ma_varirable
+```
+
+*Demande à l'utilisateur et récupère les données dans `$reponse`*
+```powershell
+$reponse = Read-Host "Donnez votre réponse"
+```
+:::info
+Pas besoin de mettre les `:`, powershell les affiches automatiquement
+:::
+
+*Efface le contenu de la fenêtre*
+```powershell
+Clear-Host
+```
