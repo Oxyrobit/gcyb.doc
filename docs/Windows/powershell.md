@@ -51,6 +51,27 @@ $var = $null
 ```
 Connaitre le type `$var.GetType()`
 
+*Afficher toutes les valeurs des propriétés d'un objet*
+```powershell
+$dossier = Get-Item -Path "E:\TP-Ps"
+$dossier | select *
+$dossier | format-list *
+```
+
+*Utilisation des guillemets*
+```powershell
+#Les simple guillemet n'interprête pas les variables qu'il y a à l'intérieur
+$prenom = 'bob'
+Write-Host 'Mon prenom est $prenom' # Resultat: Mon prenom est $prenom
+
+#Les double guillemets interprètent les variables
+$prenom = 'bob'
+Write-Host "Mon prenom est $prenom" # Resultat: Mon prenom est bob
+
+# Sous execution de commande
+$rep = Get-Item E:\TP-Ps
+Write-Host "Le dossier $rep à été créer le $($rep.CreationTime)"
+```
 ### Interaction avec la console
 
 *Affiche des données dans la console*
