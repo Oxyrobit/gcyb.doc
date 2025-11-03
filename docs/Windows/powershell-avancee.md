@@ -4,7 +4,7 @@ title: Powershell Avancée
 sidebar_position: 3
 ---
 
-### Caractères d'échapements
+## Caractères d'échapements
 
 | **Caractères spéciaux**     | **Observations**                                                        |
 |-----------------------------|-------------------------------------------------------------------------|
@@ -16,7 +16,7 @@ sidebar_position: 3
 | \`t                        | Tabulation horizontale                                                 |
 | \`v                        | Tabulation verticale                                                   |
 
-### Opérateurs arithmétiques
+## Opérateurs arithmétiques
 
 Addition: `+`
 Soustraction: `-`
@@ -29,7 +29,7 @@ Modulo (reste de la division): `%`
 $var1 + $var2
 ```
 
-### Opérateurs de comparaisons
+## Opérateurs de comparaisons
 
 | **Type d’opérateur**                 | **Opérateur** | **Signification**                              | **Résultat**      |
 |-------------------------------------|----------------|------------------------------------------------|-------------------|
@@ -42,7 +42,7 @@ $var1 + $var2
 | **Comparaison générique**           | `-like`        | Égalité avec caractères génériques (`*`, `?`)  | True / False      |
 |                                     | `-notlike`     | Inégalité avec caractères génériques (`*`, `?`)| True / False      |
 
-### Opérateurs logiques
+## Opérateurs logiques
 | **Opérateur** | **Description**                                                                 | **Exemples**                      | **Résultat** |
 |----------------|---------------------------------------------------------------------------------|----------------------------------|---------------|
 | `-And`         | **And logique** — TRUE si **les deux** instructions sont vraies.                | `(2 -eq 2) -and (4 -ge 3)`       | True          |
@@ -51,7 +51,7 @@ $var1 + $var2
 |                |                                                                                 | `(1 -eq 1) -or (2 -eq 2)`        | True          |
 | `-Not` `(!)`   | **Not logique** — inverse le résultat d’une instruction.                        | `-not (1 -eq 1)`                 | False         |
 
-### Opérateurs d'affectations
+## Opérateurs d'affectations
 
 | **Classique**     | **Raccourci** |
 |--------------------|----------------|
@@ -64,7 +64,7 @@ $var1 + $var2
 | `$i = $i - 1`      | `$i--`         |
 
 
-### Structure conditionnelle
+## Structure conditionnelle
 Le `SI`/`SINON`
 ```powershell
 if (condition) {
@@ -87,9 +87,9 @@ Switch(expression) {
 }
 ```
 
-### Les boucles
+## Les boucles
 
-#### La boucle **While**(`Tant que`)
+### La boucle **While**(`Tant que`)
 
 ```Powershell
 While (condition) {
@@ -97,7 +97,7 @@ While (condition) {
 }
 ```
 
-#### La boucle **Do-While**(`Répéter tant que`)
+### La boucle **Do-While**(`Répéter tant que`)
 *Test de condition est effectué à la f in*
 ```Powershell
 Do {
@@ -132,7 +132,7 @@ do {
 Write-host "Bien jouer, vous avez trouver $($choix) en $($tentative) tentative(s)"
 ```
 
-#### La boucle **For**
+### La boucle **For**
 *Valeur de départ, condition de répétition, pas d'incrémentation*
 
 ```Powershell
@@ -155,7 +155,7 @@ for ($i = 1; $i -le 46; $i++)
 }
 ```
 
-#### La boucle **ForEach**
+### La boucle **ForEach**
 *Parcourir une collection d'objets*
 ```Powershell
 ForEach (element in collection){
@@ -174,8 +174,8 @@ foreach ($file in $files_list)
 }
 ```
 
-### Astuces
-#### Formate un nombres avec des zéros.
+## Astuces
+### Formate un nombres avec des zéros.
 ```Powershell
 # Exemple : afficher un compteur avec trois chiffres
 for ($i = 1; $i -le 4; $i++) {
