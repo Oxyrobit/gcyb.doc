@@ -145,7 +145,7 @@ Get-member
 Get-Item -Path "E:\" | Get-Member
 ```
 
-### Gestion des fihiers et dossier
+### Gestion des fichiers et dossiers
 
 | **CmdLet**        | **Détails**                                                   |
 |--------------------|---------------------------------------------------------------|
