@@ -1,23 +1,8 @@
 ---
 slug: powershell-avancee
 title: Powershell Avancée
-sidebar_position: 2
+sidebar_position: 3
 ---
-
-### Astuces
-#### Formate un nombres avec des zéros.
-```Powershell
-# Exemple : afficher un compteur avec trois chiffres
-for ($i = 1; $i -le 4; $i++) {
-    "{0:D3}" -f $i
-}
-
-# Affiche
-001
-002
-003
-004
-```
 
 ### Caractères d'échapements
 
@@ -119,6 +104,33 @@ Do {
     # ..
 } While (Condition)
 ```
+**Exemple**
+```Powershell
+Clear-Host
+$nb =  Get-Random -Maximum 100 -Minimum 0
+
+Write-host "$($nb)" -ForegroundColor DarkGray
+$tentative = 0
+do {
+    
+    Write-host "Trouvez le nb entier mystère..." -ForegroundColor White
+    [int]$choix = Read-Host "Saisissez un nb entier"
+
+    Clear-Host
+
+    if($choix -gt $nb){
+        Write-Host "$($choix) est trop grand" -ForegroundColor Red
+    }
+    elseif($choix -lt $nb){
+        Write-Host "$($choix) est trop petit" -ForegroundColor Red
+    }
+
+    $tentative++
+
+}While($nb -ne $choix)
+
+Write-host "Bien jouer, vous avez trouver $($choix) en $($tentative) tentative(s)"
+```
 
 #### La boucle **For**
 *Valeur de départ, condition de répétition, pas d'incrémentation*
@@ -129,6 +141,19 @@ for(initial; condition; incrément)
     # ..
 }
 ```
+**Exemple**
+```Powershell
+Clear-Host
+
+$rootPatch = "E:\TP-Ps\Logs"
+
+for ($i = 1; $i -le 46; $i++)
+{ 
+    $number = "{0:D2}" -f $i
+    New-item -ItemType File -Path $rootPatch -Name "Log_$($number).txt"
+
+}
+```
 
 #### La boucle **ForEach**
 *Parcourir une collection d'objets*
@@ -136,4 +161,30 @@ for(initial; condition; incrément)
 ForEach (element in collection){
     # ..
 }
+```
+**Exemple**
+```Powershell
+Clear-Host
+$rootDirectory = "E:\TP-Ps\Logs"
+$files_list = Get-ChildItem -Path $rootDirectory -File
+
+foreach ($file in $files_list)
+{
+    Add-Content -Path $file.FullName -Value "Bonjour vous êtes dans $file"
+}
+```
+
+### Astuces
+#### Formate un nombres avec des zéros.
+```Powershell
+# Exemple : afficher un compteur avec trois chiffres
+for ($i = 1; $i -le 4; $i++) {
+    "{0:D3}" -f $i
+}
+
+# Affiche
+001
+002
+003
+004
 ```

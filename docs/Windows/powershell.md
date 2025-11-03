@@ -1,7 +1,7 @@
 ---
 slug: powershell
 title: Généralités sur Powershell
-sidebar_position: 1
+sidebar_position: 2
 ---
 # Powershell
 
