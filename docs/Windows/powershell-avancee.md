@@ -3,6 +3,21 @@ slug: powershell
 title: Powershell Avancée
 ---
 
+### Astuces
+#### Formate un nombres avec des zéros.
+```Powershell
+# Exemple : afficher un compteur avec trois chiffres
+for ($i = 1; $i -le 4; $i++) {
+    "{0:D3}" -f $i
+}
+
+# Affiche
+001
+002
+003
+004
+```
+
 ### Caractères d'échapements
 
 | **Caractères spéciaux**     | **Observations**                                                        |
@@ -61,3 +76,63 @@ $var1 + $var2
 | `$i = $i % 8`      | `$i %= 8`      |
 | `$i = $i + 1`      | `$i++`         |
 | `$i = $i - 1`      | `$i--`         |
+
+
+### Structure conditionnelle
+Le `SI`/`SINON`
+```powershell
+if (condition) {
+    # ...
+}
+elseif(condition) {
+    # ...
+}
+else {
+    # ...
+}
+```
+
+Le `SWITCH`
+```powershell
+Switch(expression) {
+    <Valeur1> { Instruction1 }
+    <Valeur2> { Instruction2 }
+    Default { Instruction_par_defaut } -lt 
+}
+```
+
+### Les boucles
+
+#### La boucle **While**(`Tant que`)
+
+```Powershell
+While (condition) {
+    # ..
+}
+```
+
+#### La boucle **Do-While**(`Répéter tant que`)
+*Test de condition est effectué à la f in*
+```Powershell
+Do {
+    # ..
+} While (Condition)
+```
+
+#### La boucle **For**
+*Valeur de départ, condition de répétition, pas d'incrémentation*
+
+```Powershell
+for(initial; condition; incrément)
+{
+    # ..
+}
+```
+
+#### La boucle **ForEach**
+*Parcourir une collection d'objets*
+```Powershell
+ForEach (element in collection){
+    # ..
+}
+```
