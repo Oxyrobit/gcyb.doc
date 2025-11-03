@@ -1,6 +1,7 @@
 ---
-slug: powershell
+slug: powershell-avancee
 title: Powershell Avancée
+sidebar_position: 2
 ---
 
 ### Astuces
