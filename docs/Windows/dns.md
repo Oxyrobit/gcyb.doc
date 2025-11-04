@@ -1,6 +1,6 @@
 ---
 title: DNS
-sidebar_position: 2
+sidebar_position: 4
 ---
 
 ## Espace de nom de domaine

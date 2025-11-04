@@ -1,0 +1,51 @@
+---
+sidebar_position: 2
+title: Configuration d'une station cliente
+slug: client
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+## Configuration de base
+
+Changer le nom de la machine et ajouter un suffixe DNS
+<Tabs>
+  <TabItem value="exec" label="Win+R" default>
+    ```cmd
+    sysdm.cpl
+    ```
+  </TabItem>
+</Tabs>
+Dans l'onglet `Nom de l’ordinateur` → `Modifier…`
+
+Nom de l'odinateur : `PC-CLIENT01` (par exemple)
+
+Cliquer sur `Autre…` 
+- → Suffixe DNS principal de cette ordinateur : `mazone.local`
+- → Cocher Suffixe DNS principal de cet ordinateur
+
+:::warning
+Redémarrage requis après changement.
+:::
+
+## Configurer l’adresse IP et le DNS
+<Tabs>
+  <TabItem value="exec" label="Win+R" default>
+    ```cmd
+    ncpa.cpl
+    ```
+    </TabItem>
+</Tabs>
+Clic droit sur la carte réseau → Propriétés → Double clic sur `Protocole Internet version 4 (TCP/IPv4)`
+- Cocher `Utiliser l’adresse IP suivante` :
+  - Adresse IP : `172.16.x.x` (selon votre plan d'adressage)
+  - Masque de sous-réseau : `255.255.240.0`
+  - Passerelle par défaut : `172.16.x.x`
+  - Serveur DNS préféré : `172.16.x.x`
+  - Serveur DNS auxiliaire : `172.16.x.x`
+
+Vérifier la configuration avec la commande:
+```cmd
+ipconfig /all
+```
