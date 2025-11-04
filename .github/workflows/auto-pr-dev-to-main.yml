@@ -92,15 +92,19 @@ jobs:
           echo "- Commits on dev ahead of main: **$COMMIT_COUNT**" >> $GITHUB_STEP_SUMMARY
           echo "- Threshold for auto PR: **$THRESHOLD**" >> $GITHUB_STEP_SUMMARY
           
-          # Use arithmetic comparison with default values
-          if [ "$COMMIT_COUNT" -ge "$THRESHOLD" ] 2>/dev/null; then
-            if [ "$OPEN_PRS" = "0" ]; then
-              echo "- ✅ Auto PR created successfully" >> $GITHUB_STEP_SUMMARY
-            elif [ "$OPEN_PRS" = "-1" ]; then
-              echo "- ℹ️ Check for existing PRs was skipped (threshold not met earlier)" >> $GITHUB_STEP_SUMMARY
+          # Validate numeric values and perform comparison
+          if [[ "$COMMIT_COUNT" =~ ^[0-9]+$ ]] && [[ "$THRESHOLD" =~ ^[0-9]+$ ]]; then
+            if [ "$COMMIT_COUNT" -ge "$THRESHOLD" ]; then
+              if [ "$OPEN_PRS" = "0" ]; then
+                echo "- ✅ Auto PR created successfully" >> $GITHUB_STEP_SUMMARY
+              elif [ "$OPEN_PRS" = "-1" ]; then
+                echo "- ℹ️ Check for existing PRs was skipped (threshold not met earlier)" >> $GITHUB_STEP_SUMMARY
+              else
+                echo "- ℹ️ Auto PR not created (existing PR already open)" >> $GITHUB_STEP_SUMMARY
+              fi
             else
-              echo "- ℹ️ Auto PR not created (existing PR already open)" >> $GITHUB_STEP_SUMMARY
+              echo "- ℹ️ Not enough commits yet to trigger auto PR" >> $GITHUB_STEP_SUMMARY
             fi
           else
-            echo "- ℹ️ Not enough commits yet to trigger auto PR" >> $GITHUB_STEP_SUMMARY
+            echo "- ⚠️ Unable to determine status (invalid numeric values)" >> $GITHUB_STEP_SUMMARY
           fi
