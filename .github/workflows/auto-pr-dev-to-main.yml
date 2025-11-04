@@ -83,20 +83,21 @@ jobs:
           
       - name: Summary
         run: |
-          COMMIT_COUNT="${{ steps.count.outputs.commits_ahead }}"
+          COMMIT_COUNT="${{ steps.count.outputs.commits_ahead || '0' }}"
           THRESHOLD="${{ env.COMMIT_THRESHOLD }}"
-          OPEN_PRS="${{ steps.check_pr.outputs.open_prs || 'N/A' }}"
+          OPEN_PRS="${{ steps.check_pr.outputs.open_prs || '-1' }}"
           
           echo "## Auto PR Summary" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "- Commits on dev ahead of main: **$COMMIT_COUNT**" >> $GITHUB_STEP_SUMMARY
           echo "- Threshold for auto PR: **$THRESHOLD**" >> $GITHUB_STEP_SUMMARY
           
-          if (( COMMIT_COUNT >= THRESHOLD )); then
+          # Use arithmetic comparison with default values
+          if [ "$COMMIT_COUNT" -ge "$THRESHOLD" ] 2>/dev/null; then
             if [ "$OPEN_PRS" = "0" ]; then
               echo "- ✅ Auto PR created successfully" >> $GITHUB_STEP_SUMMARY
-            elif [ "$OPEN_PRS" = "N/A" ]; then
-              echo "- ℹ️ Check for existing PRs was skipped" >> $GITHUB_STEP_SUMMARY
+            elif [ "$OPEN_PRS" = "-1" ]; then
+              echo "- ℹ️ Check for existing PRs was skipped (threshold not met earlier)" >> $GITHUB_STEP_SUMMARY
             else
               echo "- ℹ️ Auto PR not created (existing PR already open)" >> $GITHUB_STEP_SUMMARY
             fi
