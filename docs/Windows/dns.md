@@ -39,3 +39,31 @@ Longueur total: 254 caractères
 
 Le FQDN d'une machine est obtenu par la concaténation du nom d'hôte de l'ordinateur et du suffixe DNS.
 
+## Serveur de nom DNS
+- Serveur hébergeant le rôle **Serveur DNS**
+- Répodre aux résolutios de nom demandés par les clients
+- Héberge, dans un **fichier de zone**, tout ou partie de l'espace de nom qui lui a été délégué.
+- Le serveur DNS qui administre une zone est appelé **SOA**
+
+## Cache DNS
+Le serveur DNS stocke les résolution **reussies** ou **non abouties** dans un fichier (le cache). (durée du cache: 1j par defaut)
+
+## Enregistrements
+- `A` et `AAAA` traduit un FQDn en @IP
+- SOA (Start of Authority) indique le serveur DNS qui administre la zone
+- CNAME (Cononical Name) indique l'`alias` d'un FQDN
+- NS (Name Server) indique un serveur DNS capable de résoudre une requête DNS
+- PTR (PoinTeR) traduit une @IP en FQDN
+- MX (Mail eXchange) Indique un serveur de messagerie
+- TXT fournit des informations au format texte
+
+## Type de zones
+
+### Zone principale
+ *A completer*
+### Zone secondaire
+ *A completer*
+### Zone de Stub
+- Recupère une copie partielle du fichier de zone
+- Le serveur DNS ne peut que lire le fichier de zone
+- Permet de rediriger des requêtes vers un domaine précis
