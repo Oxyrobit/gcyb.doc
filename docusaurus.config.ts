@@ -23,7 +23,7 @@ const config: Config = {
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
   organizationName: 'Oxyrobit Corporation', // Usually your GitHub org/user name.
-  projectName: 'docusaurus', // Usually your repo name.
+  projectName: 'GCYB Docs', // Usually your repo name.
 
   onBrokenLinks: 'throw',
 
@@ -102,6 +102,11 @@ const config: Config = {
                 label: 'Windows',
               },
           ],
+        },
+        {
+          type: 'docSidebar',
+          sidebarId: 'python',
+          label: 'Python',
         },
         {
           href: 'https://github.com/Oxyrobit/gcyb.doc',
