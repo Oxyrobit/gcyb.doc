@@ -1,0 +1,76 @@
+---
+title: Gestion des licences
+sidebar_position: 5
+---
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+# Pourquoi active Windows ?
+Etre en accord avec le **cadre légal**: 1 produit installé = 1 licence.
+
+Reception des correctifs de sécurité et des mises à jours importantes ou facultatives
+
+Ne pas subir les rappels et avertissements
+
+# Familles de licence
+- Retail (commerciale)
+- OEM (Original Equipement Manufacturer)
+- VLK (Voliume Licensing Key):
+    + **Clé MAK**   : Clé à activation multiple
+    + **Clé CSVLK** : Clé unique pour hôte KMS
+    + **Clé GVLK**  : Clé pour client KMS
+
+### Clé MAK
+ Clé prvé et utilisé par l'ensemble des clients
+
+ Possède un nombre fini d'activation
+
+ Compteur sur le site VLSC de Microsolft
+
+
+# Méthode d'activation
+- Activation Téléphonique
+- Activation Internet
+- Activation Proxy MAK
+    1. Seul l'ordinateur VAMT est connécté à Internet (MAK ou CSVLK)
+    2. L'odinateur VAMT n'est pas connecté à Internet
+
+#### Visualisation de l'état de la licence
+Changer le nom de la machine et ajouter un suffixe DNS
+<Tabs>
+  <TabItem value="exec" label="cmd" default>
+    ```cmd
+    slmgr /dlv
+    ```
+  </TabItem>
+</Tabs>
+
+## KMS
+Architecture interne client Serveur
+
+Utilisation d'une clé client KMS(**GVLK**) et d'une clé hôte KMS (**CSVLK**)
+
+Compteur d'activation de la clé hôte sur le site VLSC
+
+Activation par baux de 180j pour le client
+
+### Basé sur le service KMS
+
+Activation sur le seuil minimal:
+    - 25 OS client
+    - 5 OS Serveurs
+    - 5 Produits Office
+
+Contact avec l'hôte KMS
+    - Publication dans le DNS
+    - Action sur chaque machine (**slmgr**)
+
+### Basé sur Active Directory
+    - Activation des l'adhésions
+    - Contact avec l'hôte KMS
+
+
+:::info
+Client KMS envoie la requête vers l'hôte sur le port TCP 1688
+:::
+
