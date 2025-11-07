@@ -74,3 +74,19 @@ Contact avec l'hôte KMS
 Client KMS envoie la requête vers l'hôte sur le port TCP 1688
 :::
 
+
+#Etape d'activation
+*Clé GVLK*
+```cmd
+slmgr /ipk W**********
+```
+
+*Definir le serveur KMS*
+```cmd
+slmgr /skms <@IP> | FQDN
+```
+
+*Contacter le serveur KMS*
+```cmd
+slmgr /ato
+```
