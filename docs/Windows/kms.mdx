@@ -75,7 +75,7 @@ Client KMS envoie la requête vers l'hôte sur le port TCP 1688
 :::
 
 
-#Etape d'activation
+# Etape d'activation
 *Clé GVLK*
 ```cmd
 slmgr /ipk W**********
@@ -90,3 +90,9 @@ slmgr /skms <@IP> | FQDN
 ```cmd
 slmgr /ato
 ```
+### Enregistrement SRV
+
+Service : _VLMCS
+Protocole : _TCP
+Numéro du port : 1688
+Hôte offrant ce service : fqdn du serveur KMS (voir avec le formateur).
