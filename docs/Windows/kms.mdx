@@ -5,40 +5,35 @@ sidebar_position: 5
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-# Pourquoi active Windows ?
+## Pourquoi activer Windows ?
 Etre en accord avec le **cadre légal**: 1 produit installé = 1 licence.
 
 Reception des correctifs de sécurité et des mises à jours importantes ou facultatives
 
 Ne pas subir les rappels et avertissements
 
-# Familles de licence
+## Familles de licence
 - Retail (commerciale)
 - OEM (Original Equipement Manufacturer)
-- VLK (Voliume Licensing Key):
+- VLK (Volume Licensing Key):
     + **Clé MAK**   : Clé à activation multiple
+        - Clé privée et utilisé par l'ensemble des clients
+        - Possède un nombre fini d'activation
+        - Compteur sur le site VLSC de Microsoft
     + **Clé CSVLK** : Clé unique pour hôte KMS
     + **Clé GVLK**  : Clé pour client KMS
 
-### Clé MAK
- Clé prvé et utilisé par l'ensemble des clients
-
- Possède un nombre fini d'activation
-
- Compteur sur le site VLSC de Microsolft
-
-
-# Méthode d'activation
+## Méthode d'activation
 - Activation Téléphonique
 - Activation Internet
 - Activation Proxy MAK
     1. Seul l'ordinateur VAMT est connécté à Internet (MAK ou CSVLK)
     2. L'odinateur VAMT n'est pas connecté à Internet
 
-#### Visualisation de l'état de la licence
+### Visualisation de l'état de la licence
 Changer le nom de la machine et ajouter un suffixe DNS
 <Tabs>
-  <TabItem value="exec" label="cmd" default>
+  <TabItem value="exec" label="Cmd" default>
     ```cmd
     slmgr /dlv
     ```
@@ -75,24 +70,33 @@ Client KMS envoie la requête vers l'hôte sur le port TCP 1688
 :::
 
 
-# Etape d'activation
-*Clé GVLK*
+## Etape d'activation
+*Sur le poste client KMS*
+
+1. **Installation de la clé GVLK**
 ```cmd
 slmgr /ipk W**********
 ```
 
-*Definir le serveur KMS*
+2. **Configuration du serveur KMS à contacter**
 ```cmd
 slmgr /skms <@IP> | FQDN
 ```
 
-*Contacter le serveur KMS*
+3. **Contacter le serveur KMS maintenant**
 ```cmd
 slmgr /ato
 ```
 ### Enregistrement SRV
+Sur la zone DNS, créer un enregistrement de type SRV avec les informations suivantes:
 
+<Tabs>
+  <TabItem value="exec" label="Console DNS" default>
+```cmd
 Service : _VLMCS
 Protocole : _TCP
 Numéro du port : 1688
-Hôte offrant ce service : fqdn du serveur KMS (voir avec le formateur).
+Hôte offrant ce service : FQDN du serveur KMS
+```
+    </TabItem>
+</Tabs>
