@@ -34,7 +34,7 @@ const config: Config = {
     defaultLocale: 'fr',
     locales: ['fr'],
   },
-
+  plugins: [['drawio', {}]],
   presets: [
     [
       'classic',
