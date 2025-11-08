@@ -1,0 +1,52 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36" version="28.2.9">
+  <diagram name="Page-1" id="yrb5osywiK_TGZCY1o6K">
+    <mxGraphModel dx="2037" dy="1070" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="700" pageHeight="400" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="qRiQJzpbCCAd7k38hIj9-1" value="" style="whiteSpace=wrap;html=1;fillColor=none;strokeWidth=2;fontColor=#000000;strokeColor=light-dark(#000000,#D08F00);movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;flipV=0;flipH=0;" vertex="1" parent="1">
+          <mxGeometry x="20" y="10" width="660" height="660" as="geometry" />
+        </mxCell>
+        <mxCell id="qRiQJzpbCCAd7k38hIj9-3" value="Fôret" style="text;strokeColor=none;fillColor=none;html=1;fontSize=24;fontStyle=1;verticalAlign=middle;align=center;fontColor=light-dark(#000000,#D08F00);movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;flipV=0;flipH=0;" vertex="1" parent="1">
+          <mxGeometry x="20" y="10" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="qRiQJzpbCCAd7k38hIj9-4" value="" style="triangle;whiteSpace=wrap;html=1;rotation=-90;fontColor=none;noLabel=1;strokeColor=light-dark(#000000,#2A1D00);fillColor=none;strokeWidth=3;flipV=0;flipH=0;" vertex="1" parent="1">
+          <mxGeometry x="290" y="130" width="140" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="qRiQJzpbCCAd7k38hIj9-5" value="Domaine A" style="text;strokeColor=none;fillColor=none;html=1;fontSize=24;fontStyle=1;verticalAlign=middle;align=center;fontColor=light-dark(#000000,#2A1D00);flipV=0;flipH=0;" vertex="1" parent="1">
+          <mxGeometry x="310" y="280" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="qRiQJzpbCCAd7k38hIj9-6" value="" style="triangle;whiteSpace=wrap;html=1;rotation=-90;fontColor=none;noLabel=1;strokeColor=light-dark(#000000,#2A1D00);fillColor=none;strokeWidth=3;flipV=0;flipH=0;" vertex="1" parent="1">
+          <mxGeometry x="520" y="450" width="140" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="qRiQJzpbCCAd7k38hIj9-7" value="Domaine C" style="text;strokeColor=none;fillColor=none;html=1;fontSize=24;fontStyle=1;verticalAlign=middle;align=center;fontColor=light-dark(#000000,#2A1D00);flipV=0;flipH=0;" vertex="1" parent="1">
+          <mxGeometry x="540" y="600" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="qRiQJzpbCCAd7k38hIj9-8" value="" style="triangle;whiteSpace=wrap;html=1;rotation=-90;fontColor=none;noLabel=1;strokeColor=light-dark(#000000,#2A1D00);fillColor=none;strokeWidth=3;flipV=0;flipH=0;" vertex="1" parent="1">
+          <mxGeometry x="60" y="440" width="140" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="qRiQJzpbCCAd7k38hIj9-9" value="Domaine B" style="text;strokeColor=none;fillColor=none;html=1;fontSize=24;fontStyle=1;verticalAlign=middle;align=center;fontColor=light-dark(#000000,#2A1D00);flipV=0;flipH=0;" vertex="1" parent="1">
+          <mxGeometry x="80" y="590" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="qRiQJzpbCCAd7k38hIj9-10" value="Domaine" style="text;strokeColor=none;fillColor=none;html=1;fontSize=24;fontStyle=1;verticalAlign=middle;align=center;fontColor=light-dark(#000000,#2A1D00);flipV=0;flipH=0;" vertex="1" parent="1">
+          <mxGeometry x="40" y="50" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="qRiQJzpbCCAd7k38hIj9-14" value="" style="endArrow=none;html=1;rounded=0;entryX=-0.009;entryY=-0.019;entryDx=0;entryDy=0;entryPerimeter=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;strokeColor=light-dark(#000000,#5B114E);strokeWidth=3;" edge="1" parent="1" source="qRiQJzpbCCAd7k38hIj9-8" target="qRiQJzpbCCAd7k38hIj9-4">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="130" y="440" as="sourcePoint" />
+            <mxPoint x="180" y="390" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="qRiQJzpbCCAd7k38hIj9-15" value="" style="endArrow=none;html=1;rounded=0;entryX=-0.005;entryY=0.99;entryDx=0;entryDy=0;entryPerimeter=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;strokeColor=light-dark(#000000,#5B114E);strokeWidth=3;" edge="1" parent="1" source="qRiQJzpbCCAd7k38hIj9-6" target="qRiQJzpbCCAd7k38hIj9-4">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="200" y="529" as="sourcePoint" />
+            <mxPoint x="342" y="360" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="qRiQJzpbCCAd7k38hIj9-16" value="&lt;p style=&quot;language:en-GB;margin-top:0pt;margin-bottom:0pt;text-align:left;&amp;lt;br/&amp;gt;direction:ltr;unicode-bidi:embed;vertical-align:baseline&quot;&gt;&lt;span style=&quot;font-family: Verdana;&quot;&gt;Arborescence de domaine&lt;/span&gt;&lt;/p&gt;" style="text;strokeColor=none;fillColor=none;html=1;fontSize=24;fontStyle=1;verticalAlign=middle;align=center;fontColor=light-dark(#000000,#5B114E);flipV=0;flipH=0;" vertex="1" parent="1">
+          <mxGeometry x="30" y="90" width="370" height="40" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
