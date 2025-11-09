@@ -42,7 +42,7 @@ Workflow qui publie l'image Docker sur GitHub Container Registry quand une PR es
 
 ### Mise à jour automatique via SSH
 
-À la fin du workflow, un fichier `UPDATE_GCYB` est créé avec la date et l'heure de l'exécution du workflow, puis envoyé sur un serveur distant via SSH dans le répertoire `/tmp/`.
+À la fin du workflow, un fichier `UPDATE_GCYB` est créé avec la date et l'heure de l'exécution du workflow, puis envoyé sur un serveur distant via SSH dans le répertoire mentionner.
 
 #### Secrets requis
 
@@ -51,6 +51,7 @@ Pour que cette fonctionnalité fonctionne, vous devez configurer les secrets sui
 - `SSH_PRIVATE_KEY` : La clé privée SSH pour se connecter au serveur distant
 - `SSH_HOST` : L'adresse du serveur distant (ex: example.com ou 192.168.1.1)
 - `SSH_USER` : Le nom d'utilisateur SSH pour la connexion
+- `SSH_DIRECTORY` : Emplacement du fichier
 
 #### Configuration des secrets
 
