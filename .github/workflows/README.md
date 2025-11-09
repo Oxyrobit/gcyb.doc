@@ -39,3 +39,23 @@ Ces permissions sont déjà configurées dans le workflow.
 ## Docker Publish
 
 Workflow qui publie l'image Docker sur GitHub Container Registry quand une PR est fusionnée dans `main`.
+
+### Mise à jour automatique via SSH
+
+À la fin du workflow, un fichier `UPDATE_GCYB` est créé avec la date et l'heure de l'exécution du workflow, puis envoyé sur un serveur distant via SSH dans le répertoire `/tmp/`.
+
+#### Secrets requis
+
+Pour que cette fonctionnalité fonctionne, vous devez configurer les secrets suivants dans GitHub :
+
+- `SSH_PRIVATE_KEY` : La clé privée SSH pour se connecter au serveur distant
+- `SSH_HOST` : L'adresse du serveur distant (ex: example.com ou 192.168.1.1)
+- `SSH_USER` : Le nom d'utilisateur SSH pour la connexion
+
+#### Configuration des secrets
+
+1. Allez dans **Settings** → **Secrets and variables** → **Actions**
+2. Cliquez sur **New repository secret**
+3. Ajoutez chaque secret avec son nom et sa valeur correspondante
+
+**Note :** Assurez-vous que la clé publique correspondant à `SSH_PRIVATE_KEY` est ajoutée dans le fichier `~/.ssh/authorized_keys` du serveur distant.
