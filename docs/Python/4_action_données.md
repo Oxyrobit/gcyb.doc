@@ -16,7 +16,7 @@ Pour pouvoir  trouver des informations (textes) dans un fichier ou une donnée d
 #### 1. Extraire le contenu d'un fichier?
 Pour accéder au contenu d'un fichier il doit être ouvert, lu/ecrit, puis fermé. La manière recommander et simple pour ouvrir un fichier et le lire est comme suit:
 
-```
+```py
 contenu = ''
 with open('chemin_de_mon_fichier/mon_fichier.txt', 'r') as file:
 	contenu = file.read()
@@ -66,7 +66,7 @@ Un texte de type *string* est une liste de charactères.
 
 Donc si je fair une boucle *for* je peux vérifier chaque charactère du texte. Ce qui est très utile pour trouver des logique de mots particulière (comme des palindromes), changer des charactères, ou autre.
 
-```
+```py
 text = ''				# Déclaration de variable string
 for lettre in mon_texte:		# Pour chaque lettre dans mon_texte je vais...
 	text += lettre			# ...ajouter cette lettre à ma variable text
@@ -87,7 +87,7 @@ Nous avons un fichier nommé "log.txt" qui contient des mots de passes et d'autr
 - Est-ce que ce que je recherche à une structure consistente ou pas? Une mot de pass en claire est variable mais un hash de mot de passe est facilement reconnaissable.
 
 #### Le fichier 'log.txt':
-```
+```conf
 daniel={pseudo=daniel,password=Hello}
 bob={pseudo=bob,password=15jukeoma!::}
 jorge={pseudo=jorge,password=god}
@@ -100,7 +100,7 @@ On peut voir que le fichier à une structure consistent mais la donnée recherch
 
 #### Code:
 Il y a presque une infinitée de manière de faire mais en voilà une:
-```
+```py
 """ 
 Le bût est de récupérer les mots de passes dans un fichier log.txt:
 	1) Récupérer une par une les lignes du fichier et travailler dessus.
@@ -128,7 +128,7 @@ with open('./log.txt', 'r') as file:
 ```
 
 Il est aussi possible de simplement récupérer la position des characters:
-```
+```py
 import re
 with open('./log.txt', 'r') as file:
 	for line in file:
@@ -152,7 +152,7 @@ Nous avons un fichier nommé "log2.txt" qui contient des mots de passes comme da
 
 #### Le fichier 'log2.txt':
 
-```
+```log
 daniel/b73bf7d3ba1a517644661bc4bcd85f9a/True/bob/a652d6bae8b080315c8c7664d5be7ead/jorge/a4757d7419ff3b48e92e90596f0e7548/
 ```
 
@@ -162,7 +162,7 @@ Chaque donnée est séparer par un '/'.<br/>
 Dans ce cas présent les hash sont très identifiable et ont tous 32 charactères et sont écrit en Héxadécimal, il est donc mieux de chercher directement les hashes.
 
 #### Code:
-```
+```py
 import re
 with open('./log2.txt', 'r') as file:
     texte = file.read()
