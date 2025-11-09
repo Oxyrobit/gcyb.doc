@@ -84,4 +84,4 @@ jobs:
 
       - name: Upload UPDATE_GCYB via rsync
         run: |
-          rsync -avz UPDATE_GCYB ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/tmp/
+          rsync -avz UPDATE_GCYB ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/{{ secrets.SSH_DIRECTORY }}
