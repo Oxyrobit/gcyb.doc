@@ -86,7 +86,7 @@ jobs:
 
       - name: Upload UPDATE_GCYB via rsync
         run: |
-          rsync -avz -e "ssh -i ${{ secrets.SSH_PRIVATE_KEY }}" UPDATE_GCYB ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/
+          rsync -avz -e "ssh -i ~/.ssh/id_ed25519" UPDATE_GCYB ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/
           
       - name: Remove SSH Configuration
         run: |
