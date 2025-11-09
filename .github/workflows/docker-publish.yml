@@ -68,3 +68,26 @@ jobs:
           DIGEST: ${{ steps.build.outputs.digest }}
         run: |
           echo "$TAGS" | xargs -I {} cosign sign --yes {}@${DIGEST}
+
+      - name: Create UPDATE_GCYB file
+        run: |
+          date '+%Y-%m-%d %H:%M:%S' > UPDATE_GCYB
+          echo "Created UPDATE_GCYB with content:"
+          cat UPDATE_GCYB
+
+      - name: Setup SSH key
+        run: |
+          mkdir -p ~/.ssh
+          chmod 700 ~/.ssh
+          printf '%s\n' "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          printf '%s\n' "${{ secrets.SSH_HOST_KEY }}" > ~/.ssh/known_hosts
+          chmod 644 ~/.ssh/known_hosts
+
+      - name: Upload UPDATE_GCYB via rsync
+        run: |
+          rsync -avz -e "ssh -i ~/.ssh/id_ed25519" UPDATE_GCYB ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/
+          
+      - name: Remove SSH Configuration
+        run: |
+            rm -fr ~/.ssh/

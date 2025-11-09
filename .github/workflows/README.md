@@ -39,3 +39,46 @@ Ces permissions sont déjà configurées dans le workflow.
 ## Docker Publish
 
 Workflow qui publie l'image Docker sur GitHub Container Registry quand une PR est fusionnée dans `main`.
+
+### Mise à jour automatique via SSH
+
+À la fin du workflow, un fichier `UPDATE_GCYB` est créé avec la date et l'heure de l'exécution du workflow, puis envoyé sur un serveur distant via SSH dans le répertoire mentionner.
+
+#### Secrets requis
+
+Pour que cette fonctionnalité fonctionne, vous devez configurer les secrets suivants dans GitHub :
+
+- `SSH_PRIVATE_KEY` : La clé privée SSH pour se connecter au serveur distant
+- `SSH_HOST_KEY`: Resulat de la commande : `ssh-keyscan -t ed25519 <@ IP ou FAQN>` **Faire l'etape de génération de secrets** Empreinte de l'hôte. 
+- `SSH_HOST` : L'adresse du serveur distant (ex: example.com ou 192.168.1.1)
+- `SSH_USER` : Le nom d'utilisateur SSH pour la connexion
+
+
+
+#### Générer les secrets
+
+```bash
+sudo adduser --system --shell /bin/bash --home /var/lib/gcyb-ci --group gcyb-ci
+sudo mkdir -p /var/lib/gcyb-ci/.ssh
+sudo chown -R gcyb-ci:gcyb-ci /var/lib/gcyb-ci/.ssh
+sudo chmod 700 /var/lib/gcyb-ci/.ssh
+
+ssh-keygen -t ed25519 -C "gcyb-ci@$(hostname) (gha)" -f ./gcyb_ci_ed25519
+PUB=$(cat ./gcyb_ci_ed25519.pub)
+
+echo 'command="/usr/local/bin/rrsync -wo /tmp",no-pty,no-agent-forwarding,no-port-forwarding '"$PUB" | \
+  sudo tee -a /var/lib/gcyb-ci/.ssh/authorized_keys >/dev/null
+
+
+sudo chown -R gcyb-ci:gcyb-ci /var/lib/gcyb-ci/.ssh
+sudo chmod 600 /var/lib/gcyb-ci/.ssh/authorized_key
+
+```
+
+#### Configuration des secrets
+
+1. Allez dans **Settings** → **Secrets and variables** → **Actions**
+2. Cliquez sur **New repository secret**
+3. Ajoutez chaque secret avec son nom et sa valeur correspondante
+
+**Note :** Assurez-vous que la clé publique correspondant à `SSH_PRIVATE_KEY` est ajoutée dans le fichier `~/.ssh/authorized_keys` du serveur distant.
