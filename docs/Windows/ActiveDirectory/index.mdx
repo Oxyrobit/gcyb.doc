@@ -19,3 +19,37 @@ Cet annuaire se situe sous `C:\Windows\NTDS\ntds.dit`.
 
 <Drawio autoFit={"width"} content={adGraph} zoom={0.5} page={1} />
 
+## Objet de l'AD
+
+*Les objets sont une représentation des éléments qui composent un réseaux Windows tel que :*
+
+- Contact
+- Groupes
+- Utilisateurs
+- Imprimantes
+- Ordinateurs
+- Dossiers partagés
+
+
+## Unités d'Organisation
+
+- Organiser les objets au sein d'un Active Directory
+- Déléguer une aprtie de l'administration
+- Appliquer des stratégies de Groupes
+
+:::info Bonne pratique
+- Limité le nombre de niveau à 10 maximums
+- 64 caractèes max
+- Eviter les espaces, les caractère accentués et la caractères spécifique
+:::
+
+Manipulation de l'oject grâce à son `Distinguished Name ou DN` 
+
+```powershell
+# Obtient toutes les OU
+$ALL_OU = Get-ADOrganizationalUnit -Filter 'Name -like "*"'
+
+#Obtenir le DN à partir d'un nom d'OU
+$OU_DN = ($ALL_OU | Where-Object { $_.Name -eq "NOM DE L'OU"}).DistinguishedName
+```
+
