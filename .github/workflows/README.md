@@ -71,7 +71,7 @@ echo 'command="/usr/local/bin/rrsync -wo /tmp",no-pty,no-agent-forwarding,no-por
 
 
 sudo chown -R gcyb-ci:gcyb-ci /var/lib/gcyb-ci/.ssh
-sudo chmod 600 /var/lib/gcyb-ci/.ssh/authorized_key
+sudo chmod 600 /var/lib/gcyb-ci/.ssh/authorized_keys
 
 ```
 
