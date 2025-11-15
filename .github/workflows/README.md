@@ -66,7 +66,7 @@ sudo chmod 700 /var/lib/gcyb-ci/.ssh
 ssh-keygen -t ed25519 -C "gcyb-ci@$(hostname) (gha)" -f ./gcyb_ci_ed25519
 PUB=$(cat ./gcyb_ci_ed25519.pub)
 
-echo 'command="/usr/local/bin/rrsync -wo /tmp",no-pty,no-agent-forwarding,no-port-forwarding '"$PUB" | \
+echo 'command="/usr/bin/rrsync -wo /tmp",no-pty,no-agent-forwarding,no-port-forwarding '"$PUB" | \
   sudo tee -a /var/lib/gcyb-ci/.ssh/authorized_keys >/dev/null
 
 
