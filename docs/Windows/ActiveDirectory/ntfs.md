@@ -21,7 +21,7 @@ Get-NTFSAccess
 ```powershell
 cls
 
-Import-Module "E:\Administration\Import\NTFSSecurity"
+Import-Module "C:\NTFSSecurity"
 
 $Parent = "E:\Bdd"
 
