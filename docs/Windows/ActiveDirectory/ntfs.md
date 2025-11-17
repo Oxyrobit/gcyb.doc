@@ -7,19 +7,21 @@ sidebar_position: 7
 :::warn
 Importation à rejouer/ non tester
 :::
-1. [Télécharger le module ici](https://www.powershellgallery.com/packages/NTFSSecurity/4.2.6)
-2. Importer le fichier sur le serveur
-3. Renommer `ntfssecurity.4.2.6.nupkg` en `ntfssecurity.4.2.6.nupkg.zip`
-4. Extraire le contenu dans `C:\Users\adm-xxx\Documents\WindowsPowerShell\Modules\ntfssecurity.4.2.6.nupkg` (Dossier Modules à créer)
-5. Executer `NTFSSecurity.Init.ps1`
-
+1. Importer le dossier **NTFSSecurity**  ou [Télécharger le module ici](https://www.powershellgallery.com/packages/NTFSSecurity/4.2.6)
+2. Executer `NTFSSecurity.Init.ps1`
+3. Fermer et relancer Powershell
+4. Tester le bon fonctionnement:
+```powershell
+Import-Module "C:\NTFSSecurity"
+Get-NTFSAccess
+```
 
 ## Création Automatique des DL et Autorisations NTFS
 
 ```powershell
 cls
 
-Import-Module ntfssecurity
+Import-Module "E:\Administration\Import\NTFSSecurity"
 
 $Parent = "E:\Bdd"
 
