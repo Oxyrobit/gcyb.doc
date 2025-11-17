@@ -28,10 +28,7 @@ $Parent = "E:\Bdd"
 
 $Folders = Get-ChildItem -Path $Parent -Directory -Recurse
 
-
 $CurrentOUs = Get-ADOrganizationalUnit -Filter 'Name -like "*"'
-
-($CurrentOUs | Where-Object { $_.Name -eq $user.OU}).DistinguishedName
 
 $ou = ($CurrentOUs | Where-Object { $_.Name -eq "DL"}).DistinguishedName
 
