@@ -7,8 +7,9 @@ sidebar_position: 7
 :::warn
 Importation à rejouer/ non tester
 :::
-1. Importer le dossier **NTFSSecurity**  ou [Télécharger le module ici](https://www.powershellgallery.com/packages/NTFSSecurity/4.2.6)
-2. Executer `NTFSSecurity.Init.ps1`
+
+1. Importer le dossier **NTFSSecurity** dans `C:\NTFSSecurity`  ou [Télécharger le module ici](https://www.powershellgallery.com/packages/NTFSSecurity/4.2.6)
+2. Executer en tant qu'Administrateur `NTFSSecurity.Init.ps1`
 3. Fermer et relancer Powershell
 4. Tester le bon fonctionnement:
 ```powershell
@@ -33,6 +34,10 @@ $CurrentOUs = Get-ADOrganizationalUnit -Filter 'Name -like "*"'
 ($CurrentOUs | Where-Object { $_.Name -eq $user.OU}).DistinguishedName
 
 $ou = ($CurrentOUs | Where-Object { $_.Name -eq "DL"}).DistinguishedName
+
+# Creation du DL BDD, Autorisation à mettre à la main pcq flemme de faire une fonction
+New-ADGroup -GroupCategory Security -GroupScope DomainLocal -Path $ou -Name "DL_$($Parent)_R"
+New-ADGroup -GroupCategory Security -GroupScope DomainLocal -Path $ou -Name "DL_$($Parent)_RW"
 
 foreach ($folder in $Folders) {
 
