@@ -37,7 +37,7 @@ foreach ($user in $users) {
         -Path $OUPath `
         -AccountPassword $SecurePassword `
         -Description $Description `
-        -Office $Titre
+        -Title $Titre
 }
 ```
 

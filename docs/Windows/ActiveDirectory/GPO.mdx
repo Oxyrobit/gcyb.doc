@@ -1,0 +1,80 @@
+---
+title: GPO
+description: Group Policy Object
+sidebar_position: 8
+---
+
+:::danger
+Ne S'applique pas aux groupes
+:::
+
+Contrôler de manières centralisé et efficase les droits de l'utilisateurs
+
+Ensemble de parametre qui s'aplliquent à des objects **Utilisateurs** et/ou **Ordinateurs**
+
+## Ouvrir la console GPMC
+
+<Tabs>
+  <TabItem value="exec" label="Win+R" default>
+    ```cmd
+    gpmc.msc
+    ```
+    </TabItem>
+</Tabs>
+
+Deux GPO sont créer par defaut dans **Objects de stratéfie de groupe**
+
+Les GPO sont stocker dans 
+<Tabs>
+  <TabItem value="exec" label="Explorateur de fichier" default>
+    ```cmd
+    \\DC1\sysvol\mon.domaine\Policies
+    ```
+    </TabItem>
+</Tabs>
+
+## Ordres d'application des GPO
+1. Stratégie de groupe locales
+2. Stratégie de groupe liées aux sites
+3. Stratégie de groupe liées aux domaines
+4. Stratégie de groupe liées aux OU
+5. Stratégie de groupe liées aux OU Enfants
+
+Les stratégies ce cumule tant qu'elle ne rentre pas en conflit
+
+:::tip
+- Dans un même conteneurs l'ordre est appliqué du **Bas** vers le **Haut**
+- C'est toujours le dernier parametre lu qui s'applique
+:::
+
+## Rafraichissement
+
+**Phase initiale**
+- Au demarrage de l'ordinateur
+- A l'ouverture de la sessions
+
+**Cycle**
+- 5min pour les Contrôleurs de Domaine
+- 90min toutes les autres machines  (+ temps aléatoire de 0 et 30min)
+- 16 heures Pour toutes les machines: les parametre de sécu sont appliquées, que la GPO ait changé ou non
+
+
+## Bloquage de l'héritage
+
+Permet de bloquer toutes les GPO des niveaux supérieurs
+
+:::info
+Il y aura l'icone ℹ️ sur le conteneur qui a bloquer l'héritage
+:::
+
+## Appliquer une GPO (**Forcer une GPO**)
+
+Permet de bypasser le blocage de l'héritage
+
+Cela change l'ordre d'application des GPO. Les GPO appliqué seront en **Haut** dans l'ordres d'appliction d'un même conteneur
+
+:::info
+Il y aura l'icone 🔒 sur la GPO appliqué
+::
+
+

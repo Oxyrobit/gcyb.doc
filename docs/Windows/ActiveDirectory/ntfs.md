@@ -3,8 +3,8 @@ title: NTFS et DL
 sidebar_position: 7
 ---
 
-##Importer le module `ntfssecurity`
-:::warn
+## Importer le module `ntfssecurity`
+:::warning
 Importation à rejouer/ non tester
 :::
 
