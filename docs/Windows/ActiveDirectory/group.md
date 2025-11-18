@@ -46,15 +46,16 @@ Entité -> GG -> GG -> DL -> A
 ## Powershell
 ```powershell
 # Création d'un groupe global
-New-ADGroup -Name "GG_Chefs" -Path "OU=Unite,DC=XX,DC=intradef,DC=gouv,DC=fr" -GroupScope Global -GroupCategory Security
+New-ADGroup -Name "GG_Chefs" -Path "OU=Unite,DC=free,DC=fr" -GroupScope Global -GroupCategory Security
 
 # Création d'un DL
-New-ADGroup -Name "DL_Ressource_R" -Path "OU=DL,DC=XX,DC=intradef,DC=gouv,DC=fr" -GroupScope DomainLocal -GroupCategory Security
+New-ADGroup -Name "DL_Ressource_R" -Path "OU=DL,DC=free,DC=fr" -GroupScope DomainLocal -GroupCategory Security
 
 # Ajout des utilisateurs dans le GG
-Add-ADGroupMember -Identity "GG_Chefs" -Members "CN=Oposte Fidel,OU=Pers,OU=Unite,DC=XX,DC=intradef,DC=gouv,DC=fr","CN=Pan Amedee,OU=Cdt,OU=Unite,DC=XX,DC=intradef,DC=gouv,DC=fr"
+Add-ADGroupMember -Identity "GG_Chefs" -Members "CN=Oposte Fidel,OU=Pers,OU=Unite,DC=free,DC=fr","CN=Pan Amedee,OU=Cdt,OU=Unite,DC=free,DC=fr"
 
 # Suppression d'un GG
 Remove-ADGroup -Identity "GG_Chefs"
 ```
+
 
