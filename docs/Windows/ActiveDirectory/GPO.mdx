@@ -1,6 +1,6 @@
 ---
 title: GPO
-Description: Group Policy Object
+description: Group Policy Object
 sidebar_position: 8
 ---
 
@@ -24,9 +24,41 @@ Ensemble de parametre qui s'aplliquent à des objects **Utilisateurs** et/ou **O
 
 Deux GPO sont créer par defaut dans **Objects de stratéfie de groupe**
 
-## Ordres d'application des GPO
-1. 
+Les GPO sont stocker dans 
+<Tabs>
+  <TabItem value="exec" label="Explorateur de fichier" default>
+    ```cmd
+    \\DC1\sysvol\mon.domaine\Policies
+    ```
+    </TabItem>
+</Tabs>
 
+## Ordres d'application des GPO
+1. Stratégie de groupe locales
+2. Stratégie de groupe liées aux sites
+3. Stratégie de groupe liées aux domaines
+4. Stratégie de groupe liées aux OU
+5. Stratégie de groupe liées aux OU Enfants
+
+Les stratégies ce cumule tant qu'elle ne rentre pas en conflit
+
+:::tip
+- Dans un même conteneurs l'ordre est appliqué du **Bas** vers le **Haut**
+- C'est toujours le dernier parametre lu qui s'applique
+:::
+
+
+
+## Rafraichissement
+
+**Phase initiale**
+Au demarrage de l'ordinateur
+A l'ouverture de la sessions
+
+**Cycle**
+- 5min pour les Contrôleurs de Domaine
+- 90min toutes les autres machines  (+ temps aléatoire de 0 et 30min)
+- 16 heures Pour toutes les machines: les parametre de sécu sont appliquées, que la GPO ait changé ou non
 
 
 
