@@ -27,18 +27,11 @@ Import-Module "C:\NTFSSecurity"
 $Parent = "E:\Bdd"
 
 $Folders = Get-ChildItem -Path $Parent -Directory -Recurse
+$Folders += Get-Item -Path $Parent
 
 $CurrentOUs = Get-ADOrganizationalUnit -Filter 'Name -like "*"'
 
 $ou = ($CurrentOUs | Where-Object { $_.Name -eq "DL"}).DistinguishedName
-
-# Creation du DL BDD, Autorisation à mettre à la main pcq flemme de faire une fonction
-New-ADGroup -GroupCategory Security -GroupScope DomainLocal -Path $ou -Name "DL_$($Parent.Name)_R"
-New-ADGroup -GroupCategory Security -GroupScope DomainLocal -Path $ou -Name "DL_$($Parent.Name)_R"
-
-Write-Host "Configurer manuellement les autorisations du dossier $($Parent.Name)"
-
-Pause
 
 foreach ($folder in $Folders) {
 

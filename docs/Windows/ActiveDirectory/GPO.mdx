@@ -8,7 +8,7 @@ import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
 :::danger
-Ne S'applique pas aux groupes
+Ne s'applique pas aux groupes
 :::
 
 Contrôler de manières centralisé et efficase les droits de l'utilisateurs
@@ -27,7 +27,7 @@ Ensemble de parametre qui s'aplliquent à des objects **Utilisateurs** et/ou **O
 
 Deux GPO sont créer par defaut dans **Objects de stratéfie de groupe**
 
-Les GPO sont stocker dans 
+Les GPO sont stocker dans :
 <Tabs>
   <TabItem value="exec" label="Explorateur de fichier" default>
     ```cmd
@@ -78,6 +78,16 @@ Cela change l'ordre d'application des GPO. Les GPO appliqué seront en **Haut** 
 
 :::info
 Il y aura l'icone 🔒 sur la GPO appliqué
-::
+:::
 
+## Filtrage de sécurité
 
+### Personne SAUF GG_A 
+
+Dans une GPO dans l'onglet **Délégation**, Décocher l'ACE *Appliquer la stratégie de groupe* à **Utilisateur authentifiés**.
+
+Ajouter ensuite le groupe GG_A, et bien veuillez a ce que la case **Autoriser** de l'ACE *Appliquer la stratégie de groupe* soit coché
+
+### Tout le monde SAUF GG_A
+
+Dans une GPO dans l'onglet **Délégation**, ajouter le groupe GG_A et **Refuser** l'ACE *Appliquer la stratégie de groupe*
