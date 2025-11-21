@@ -1,0 +1,39 @@
+---
+title: Mot de passe granulaire
+sidebar_position: 9
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+## Politique de mot de passe granulaire (FGPP)
+
+- Necessite un niveau fonctionne de domaine 2008 ou +
+- S'applique sur des objets AD User et/ou groupes
+- Création d'un objet dPSO dans l'annuaire AD
+- L'objet PSO (Password Setting Object) prend le pas sur *Default domaine Policy*
+
+Dans le conteneur:
+<Tabs>
+  <TabItem value="exec" label="dsac.exe" default>
+    ```cmd
+    Mon domaine
+        System
+            Password Settings Container
+    ```
+    </TabItem>
+</Tabs>
+
+### Paramatre des mots de passes
+    **Nom**: Donner un nom parlant
+    **Priorité** : En cas de conflit, celui qui a la priorité la plus basse l'emporte
+    **S'applique directement à** : C'est ici que l'ont ajoute nos groupes
+
+:::tip
+Il est plus pratique d'attribuer une PSO directment depuis les parametre du groupe
+::
+
+:::info
+PSO Utilisateur > PSO groupes
+A priorité égale c'est le **GUID** le plus faible qui l'emporte
+:::
