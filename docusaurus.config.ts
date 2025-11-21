@@ -111,7 +111,7 @@ const config: Config = {
         {
           type: 'docSidebar',
           sidebarId: 'crypto',
-          label: 'Python',
+          label: 'Wtaxgefotbi',
         },
         {
           href: 'https://github.com/Oxyrobit/gcyb.doc',
