@@ -3,6 +3,7 @@ title: Introduction
 sidebar_position: 1
 ---
 
+ARPANET (1983) = Internet d'avant (1989).
 
 ## Piliers de la cyber sécurité
 
@@ -38,3 +39,43 @@ sidebar_position: 1
 
 
 
+## Concepts
+
+### Web
+
+|		  		 				| Web 1.0	| Web 2.0   |
+|-------------------------------|-----------|-----------|
+| **Disponibilité**				|   	+	| 	   +	|
+| Confidentialité				|      - 	| 	  +		|
+| Intégrité	  					|     	-	| 	   +	|
+| Non-répugnation / imputation	|     	-	| 	  + -	|
+| Privacy	  					|     	-	| 	   +	|
+| Architecture	  		 		| client-serveur | serveur-serveur |
+
+Web 1.0 : Utilisateur = visiteur
+Web 2.0 : Utilisateur = acteur (chat, plateforme sociales, sites collaboratifs...)
+Web 3.0 : IoT (Internet of Things), BigData...
+
+### Réseaux
+
+Radius - Protocole AAA (Authentification Authorisation Accès)
+EAR - élément actif du réseau
+
+### Risque liés à Internet
+
+- **Ingénierie social** : Exploiter les faiblesses d'un vecteur human pour obtenir de l'information et/ou remplir un objectif.
+- **INTOX** : La désinformation / Fausse information.
+- **Réseaux sociaux** = Tribunal Publique = Données Publiques
+- **Le défacement** : Action qui consiste à modifier tout ou une partie d'une page d'un site afin de porter préjudice à son propriétaire.
+
+Collecte de données:
+1. Primaire : noms, photos, hobbies...
+2. Secondaires : métadonnées
+
+### Loi
+
+Loi 2004-575 (21 juin 2004) : *Besoin de mettre en place des logs pour pouvoir identifié les actions utilisateur. Dans un sense, le portail captif comme ILosCa dêtre une façon d'identifier les utilisateurs avec Stormshield.*
+
+## Sites Utiles
+
+- https://attack.mitre.org/
