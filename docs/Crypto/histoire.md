@@ -6,12 +6,15 @@ sidebar_position: 2
 ## La scytale(vers 404 av. JC)
 
 Message enroulé sur un bâton
+
 **k**=Diametre dy cylindre
-Chriffrement par permutation (transposition)
+
+Chiffrement par permutation (transposition)
 
 ## Le chiffrement de César (vers 50 av. J-C)
 
 Décalage = Clé de chiffrement (k=3)
+
 Chiffrement par substitution
 
 `C = (P+k) mod 26`
@@ -29,7 +32,9 @@ C<sub>i</sub> = (p<sub>i</sub> + k<sub>i</sub>) mod 26
 ### Exemple
 
 **Message :** ATTACK  
+
 **Clé :** LEMON  
+
 (clé répétée : L E M O N L)
 
 | Lettre claire | Lettre clé | Décalage | Lettre chiffrée |
@@ -48,7 +53,7 @@ C<sub>i</sub> = (p<sub>i</sub> + k<sub>i</sub>) mod 26
 
 Substitution polyalphabétique
 
-COmposé de 26 roue
+Composé de 26 roue
 
 ## Télégraphe de Chappe (1873)
 
@@ -64,7 +69,7 @@ Code "confidientiel"
 2. N'exige pas de secret, peut tomber dans les mains de l'ennemi
 3. Clé communiqué sans notre écrite
 4. Applicable à la correspondance télégraphique
-5. portatiPortatif, maniement ou son fonctionnement n'exige pas le concours de plusieurs personnes
+5. Portatif, maniement ou son fonctionnement n'exige pas le concours de plusieurs personnes
 6. Système d'udage facile
 
 *Le deuxieme principe est le plus important*
