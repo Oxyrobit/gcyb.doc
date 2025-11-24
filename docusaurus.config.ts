@@ -110,6 +110,11 @@ const config: Config = {
         },
         {
           type: 'docSidebar',
+          sidebarId: 'cyber',
+          label: 'Cyber',
+        },
+        {
+          type: 'docSidebar',
           sidebarId: 'crypto',
           label: 'Wtaxgefotbi',
         },
