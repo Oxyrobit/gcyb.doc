@@ -7,7 +7,7 @@ sidebar_position: 3
 
 Répondre au préoccupation et à la confidentialité
 
-Ne pas mettre en péril { la prof va torp vite}
+Ne pas mettre en péril (la prof va trop vite)
 
 Effacement des données est un besoin, voir impératif dans les situation
 - Cesson, reconditionnement ou revente
