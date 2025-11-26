@@ -111,12 +111,12 @@ const config: Config = {
         {
           type: 'docSidebar',
           sidebarId: 'cyber',
-          label: 'Cyber',
+          label: 'Cybersécurité',
         },
         {
           type: 'docSidebar',
           sidebarId: 'crypto',
-          label: 'Wtaxgefotbi',
+          label: 'Cryptographie',
         },
         {
           href: 'https://github.com/Oxyrobit/gcyb.doc',
