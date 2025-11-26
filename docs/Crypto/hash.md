@@ -22,6 +22,7 @@ Processus cryptographique qui prend
 3. Diffusion (ou avalanche):  *Modification de l'entrée = sortie radicalement différente*
 4. Unidirectionnelle: *une sortie ne permet pas de trouver l'entrée*
 
+
 ## Résistance et sécurité
 
 3 résistances:
@@ -29,3 +30,16 @@ Processus cryptographique qui prend
 2. Résistance à la seconde préimage
 3. Résistance aux collisions
 
+## Stockage du mot de passe
+
+Les mots de passe sont hasher puis **salée**.
+
+Fonctione de hashage dédier:
+- Argon2
+- Pdkdf2
+
+
+## Conclusion
+
+1. Taille minimale des empreinte est de **256Bits**
+2. La meilleure attaque permettant de trouvé des collision doit necessiter de l'ordre de 2h/2
