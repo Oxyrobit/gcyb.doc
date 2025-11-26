@@ -37,10 +37,6 @@ ARPANET (1983) = Internet d'avant (1989).
 - Continuité: *Avoir des plans de continuité et de reprise suite à un sinistre*
 - Sensibilisation: *Former et sensibiliser les utilisateurs*
 
-
-
-## Concepts
-
 ### Web
 
 |		  		 				| Web 1.0	| Web 2.0   |
@@ -79,3 +75,33 @@ Loi 2004-575 (21 juin 2004) : *Besoin de mettre en place des logs pour pouvoir i
 ## Sites Utiles
 
 - https://attack.mitre.org/
+
+
+## Facteurs de disponibilité d'un SI
+
+```
+| Facteur | Description                                 |
+|---------|----------------------------------------------|
+| Watt    | Électricité                                  |
+| Joule   | Climatisation                                |
+| Octet   | Sauvegarde                                   |
+| Gramme  | Charge au sol                                |
+| Maitre  | Distance entre les admins et le datacenter   |
+| heure   | Intervention                               |
+```
+
+## Les leviers de la défendabilité d'un SI
+
+- Application des bonnes pratique SSI
+- Maitrise de la connaissance d'un système
+- Capacité de modification modulation de la posture
+- Capacité à surveiller
+- Prendre en compte le RIC
+- Capacité à réagir et reconquérir reconstruire
+
+## Contrôle des mesures de sécurité
+ 
+Le contrôle technique de la sécuirité informatique (CTSI)
+
+*Sous le contrôle et au profit d'un OSSI*
+
