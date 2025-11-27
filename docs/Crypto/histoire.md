@@ -3,7 +3,7 @@ title: Histoire
 sidebar_position: 2
 ---
 
-## La scytale(vers 404 av. JC)
+## La scytale (vers 404 av. JC)
 
 Message enroulé sur un bâton
 

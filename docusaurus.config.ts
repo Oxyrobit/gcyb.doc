@@ -119,6 +119,11 @@ const config: Config = {
           label: 'Cryptographie',
         },
         {
+          type: 'docSidebar',
+          sidebarId: 'viro',
+          label: 'Virologie',
+        },
+        {
           href: 'https://github.com/Oxyrobit/gcyb.doc',
           label: 'GitHub',
           position: 'right',
