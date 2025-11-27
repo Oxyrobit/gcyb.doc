@@ -3,30 +3,18 @@ title: Type de codes maveillants
 sidebar_position: 2
 ---
 
-### Le virus
+## 👾 Types de Logiciels Malveillants (Malwares)
 
-Programmes malveillants qui se propagent en infectant d'autres fichiers ou programmes
+| Type de Malware | Fonction / Mode d'Action |
+| :--- | :--- |
+| **Le virus** | Programmes malveillants qui se propagent en **infectant d'autres fichiers ou programmes** sur le système hôte. |
+| **Vers (Worms)** | Programmes malveillants **autonomes** capables de se **répliquer** et de se propager rapidement sur le réseau sans intervention humaine. |
+| **Chevaux de Troie (Trojans)** | Programmes malveillants qui se **présentent sous la forme de logiciels légitimes**. |
+| **Ransomwares** | Programmes malveillants conçus pour **chiffrer les fichiers** d'un système infecté, puis exiger une rançon pour le déchiffrement. |
+| **Spyware** | Programmes malveillants conçus pour **surveiller et recueillir des informations** sur les activités d'un utilisateur (frappes de clavier, sites visités, etc.). |
+| **Adwares** | Programmes malveillants qui **affichent des publicités indésirables** (pop-ups, bannières) souvent sans le consentement de l'utilisateur. |
+| **Botnets** | **Réseaux d'ordinateurs infectés** par des malwares (appelés 'bots'), utilisés pour effectuer des **attaques coordonnées** (ex: DDoS). |
 
-### Vers (Worms)
-
-Programmes malveillants autonomes capables de se répliquer et de se propager sur le réseau.
-
-### Chevaux de Troie (Trojans)
-
-Programmes malveillants qui se présentent sous la forme de logiciels légitimes
-
-### Ransomwares
-
-Programmes malveillants conçus pour chiffrer les ficiers d'un système infecté
-
-### Spyware
-Programmes malveillants conçus pour surveiller et receuillir des informations sur les activités d'un utilisateur
-
-### Adwares
-Programmes malveillants qui affiche,t des publicité indésirables
-
-### Botnets
-Reseaux d'ordinateurs inféctés par des malwares, utiliser pour effectuer des attaque coordonnées
 
 ### Rootkit
 Conçu pour dissimuler sa présence et fournir un accès non autorisé à un système informatique
