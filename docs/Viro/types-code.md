@@ -3,8 +3,6 @@ title: Type de codes maveillants
 sidebar_position: 2
 ---
 
-## 👾 Types de Logiciels Malveillants (Malwares)
-
 | Type de Malware | Fonction / Mode d'Action |
 | :--- | :--- |
 | **Le virus** | Programmes malveillants qui se propagent en **infectant d'autres fichiers ou programmes** sur le système hôte. |
