@@ -22,8 +22,9 @@ sidebar_position: 14
 - Scan des sigantures (comparaison des offsets)
 - Heuristique : recherche de code correspondant à des fonction viral
 - Vérification d’intégrité (verifie les composant d’un logiciel)
+
 **Dynamique**
-    Comportementale
+- Comportementale
 	
 **En cloud**
 
@@ -36,11 +37,10 @@ sidebar_position: 14
 
 ## Faiblesses
 
-Technique passives
+**Technique passives**
 - Furtivité
 - Polymorphisme
 - Blindage
 
-Technique active
-
+**Technique active**
 - Attaque des logiciels antivirus
