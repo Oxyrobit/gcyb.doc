@@ -79,7 +79,6 @@ Loi 2004-575 (21 juin 2004) : *Besoin de mettre en place des logs pour pouvoir i
 
 ## Facteurs de disponibilité d'un SI
 
-```
 | Facteur | Description                                 |
 |---------|----------------------------------------------|
 | Watt    | Électricité                                  |
@@ -88,7 +87,7 @@ Loi 2004-575 (21 juin 2004) : *Besoin de mettre en place des logs pour pouvoir i
 | Gramme  | Charge au sol                                |
 | Maitre  | Distance entre les admins et le datacenter   |
 | heure   | Intervention                               |
-```
+
 
 ## Les leviers de la défendabilité d'un SI
 
@@ -105,3 +104,45 @@ Le contrôle technique de la sécuirité informatique (CTSI)
 
 *Sous le contrôle et au profit d'un OSSI*
 
+## R = (V x M) x I
+
+**Risque**
+
+|   Facteur    | Description                                 |
+|--------------|---------------------------------------------|
+|Vulnérabilité | Defaut exploité par l'attaquant             |
+|Menace        | Les variables externe qu'on ne contrôle pas |
+|Impact        | Dommage sur le SI                           |
+
+
+## Contrôle de flux
+
+Dans la DMZ de transit
+- Un depôt
+- Des proxy (Mail, web, DNS)
+- Un serveur de log(SYSLOG, NTP)
+
+Le Pare-feu protège des tentatives illégales d'accèes aux réseaux qu'il protége.
+
+
+**NIDS – Network Intrusion Detection System**  
+Détection sur le réseau
+
+**NIPS – Network Intrusion Prevention System**  
+Prévention sur le réseau
+
+**HIDS – Host Intrusion Detection System**  
+Détection sur une machine
+
+**HIPS – Host Intrusion Prevention System**  
+Prévention sur une machine
+
+
+## Synthèse
+
+1. Le cloisonement des flux
+2. Le controle du flux
+3. Le pare-feu
+4. Le contrôle des protocole (PROXY, REVERSE)
+5. Portail captif
+6. La gestion du nomadisme

@@ -46,7 +46,7 @@ La restauration fait autorité (USN prioritaire)
 5. Supprimer après ce delai
 
 :::info
-Rend le conteneur ** Deleted Object** visible
+Rend le conteneur **Deleted Object** visible
 :::
 
 ### Restaurer depuis powershell
