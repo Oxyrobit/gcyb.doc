@@ -50,3 +50,64 @@ Un certification permet de prouver l'identité du propriétaire de la clé
 
 - Autorité de séquestre (Key Escrow)
     1. Autorité de stockage des clés de chiffrement générées par l'IGC
+
+
+## Le certificat élétronique
+
+Généré par un tiers de confiance appelé **Autorité de Certification**
+Associé à une clé privée detenue par le propriétaire du certificat
+
+Décomposé en 3 parties:
+- Informations relatives à l'**identification**
+- Informations relatives à la **clé publique**
+- **Signature d'un tiers de confiance**
+
+
+1. On hash le "To be sign" pour donner une **empreinte**
+2. L'AC chiffre le Hash avec sa clé privée pour donner une **signature**
+
+### Vérification
+
+1. Déchiffrement de la signature avec la clé publique de l'AC
+2. On Hash le TBS pour obtenir l'**empreinte** et on la compare avec le certificat
+
+Clé publique signée par une autre AC = **Chaine de certification**
+
+
+### Format et standard de certificats
+
+Structure: X.509
+
+**Format des certificats(fichier):**
+
+**DER** (Distinguished Encoding Rules)
+
+- Utilisé pour les certificats bruts (.cer ou .crt)
+
+**PEM** (Pricacy-Enchanced Mail) *Encodage Base64*
+
+- Utilisé pour des certificats dans les fichiers texte (.pem, .crt ou .cer)
+
+Standard
+- PKCS#7 (Public Key Cryptography Standard)
+
+Contient la chaine de certif *extension: .p7b*
+
+- PKCS#12
+
+Contient le certificat et la clé privée (protéger par un mot de passe) (.pfx ou .p12)
+
+
+:::info
+Un certificats est lié à une seule identité
+:::
+
+## TLS
+
+SSL : ancêtre
+
+TLS 1.3: Transport Layer Security
+
+*Ce protocole permet d'authentifier (certificats) puis de sécurisé les échange entre un client et un serveur.
+
+L'authentification est **obligatoire** pour le **serveur** et optionnelle pour le client.
