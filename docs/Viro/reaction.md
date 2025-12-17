@@ -1,6 +1,6 @@
 ---
 title: Réaction à une menace
-sidebar_position: 4
+sidebar_position: 5
 ---
 
 ## Acteurs de la détéction
@@ -50,4 +50,24 @@ Une connaissance du système est nécessaire
 netstat -bano # en tant qu'admin
 ```
 
+## Mode d'investigation
+
+- Technique de la Clé USB
+- Contrôler les processus actif 
+
+### Mesures immédiate 
+- Je qualifie l'incident
+- J'avalue l'impact opérationnel
+- Je réalise le compte rendu
+
+### Traçabilité
+
+Conserver une trace écrite des opérations réalisé 
+- Condition de découverte
+- Actions entreprises
+
+### Autres moyen de detection
+- Pare-feu
+- Trafic réseau
+- HIPS
 
