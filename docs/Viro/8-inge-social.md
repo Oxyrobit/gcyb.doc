@@ -30,3 +30,10 @@ sidebar_position: 8
     - Abandonner la prudence
     - Empecher de réfléchir
 - Cupidite (Trop beau pour être vrai)
+- Manque de connaissances
+- Sexe / Seduction
+- Interet / Passion
+- Biais cognitifs
+    - Confirmation
+    - Ancrage
+    - Conformité
