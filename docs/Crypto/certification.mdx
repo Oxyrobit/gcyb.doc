@@ -1,0 +1,284 @@
+---
+title: Certification
+sidebar_position: 10
+---
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+## Certification sur Linux (openssl)
+
+### Préparation de l'éspace de travail
+<Tabs>
+  <TabItem value="su" label="En Root" default>
+    ```bash
+    cd /etc/ssl 
+    ```
+    ```bash
+    mkdir crl csr crt p12
+    ```
+    *
+    ```bash
+    echo 01 > serial
+    ```
+    ```bash
+    touch index.txt
+    ```
+    *Création d’un fichier d’aléa ".rand"*
+    ```bash
+     dd if=/dev/urandom of=private/.rand bs=1k count=16
+    ```
+  </TabItem>
+</Tabs>
+
+
+### ACR: Autorité de Certificaton Racine
+
+#### Génération d'une clé privé
+<Tabs>
+  <TabItem value="su" label="/etc/ssl/" default>
+
+```bash
+    openssl genrsa -out private/ACR_CYBER.key -rand private/.rand 4096
+```
+  </TabItem>
+</Tabs>
+*Limiter les droits sur celle-ci*
+
+```bash
+    chmod 400 private/ACR_CYBER.key
+```
+
+:::info Astuce
+Préservez la clé contre la suppression involontaire
+
+```bash
+chattr +i private/ACR_CYBER.key
+```
+Faire l'opération inverse avec `chattr -i <fichier>`
+:::
+
+**Afficher diverses informations sur la paire de clé**
+```bash
+openssl rsa -in private/ACR_CYBER.key -noout -text # <--- Affiche les informations détaillées de la clé
+openssl rsa -in private/ACR_CYBER.key -pubout # <--- Affiche la clé publique
+```
+
+#### Création de la requête et génération du certificat auto-signé
+
+```bash
+openssl req -x509 -config 1_Modele_pour_ACR -key private/ACR_CYBER.key -out crt/ACR_CYBER.crt -days
+```
+
+| Clé                    | Valeur      |
+|------------------------|-------------|
+| countryName            | fr          |
+| localityName           | cesson      |
+| organizationName       | etrs        |
+| organizationUnitName   | cyber       |
+| commonName             | **ACR_CYBER**   |
+| emailAddress           |             |
+
+:::info
+L'option `-x509` est obligatoire quand il s'agit de certificats d'autorté
+`-config <modele>` doit contenir `basicConstraints = critical, CA:true`
+Je dois définir une durée de validé ? `-days <jours>` !
+:::
+
+**Visualiser son certificat**
+
+```bash
+openssl x509 -in crt/ACR_CYBER.crt -noout -text # <--- Affiche les informations détaillées du certificat (on peux y voir la duré de validité)
+openssl x509 -purpose -in crt/ACR_CYBER.crt  # <--- Afficher les informations sur l’utilisation possible du certificat
+```
+### ACI: Autorité de Certification Intermédiaire
+
+Similaire à la création d'une ACR mais quelques étapes en plus
+
+#### Génération de la clé
+
+```bash
+    openssl genrsa -out private/ACI_SERVEURS.key -rand private/.rand 4096
+```
+
+:::warning
+On fait le `chattr +i` ou on aime le risque ?
+:::
+
+#### Création de la requête
+
+J'ai besoin de: 
+- La clé privée générer précedement `private/ACI_SERVERS.key`
+- Choisir le bon modèle de requête (`2_Modele_pour_requete_ACI`)
+
+```bash
+openssl req -new -config 2_Modele_pour_requete_ACI -key private/ACI_SERVERS.key -out csr/ACI_SERVERS.csr
+```
+
+| Clé                    | Valeur      |
+|------------------------|-------------|
+| countryName            | fr          |
+| localityName           | cesson      |
+| organizationName       | etrs        |
+| organizationUnitName   | cyber       |
+| commonName             | **ACR_SERVEUR**   |
+| emailAddress           |             |
+
+Cette commande m'a créer une requête ici: `csr/ACI_SERVERS.csr`
+
+**Vérification**
+```bash
+openssl req -in csr/ACI_SERVERS.csr -noout -text
+```
+
+#### Génération du certificat
+
+J'ai besoin de:
+- La requête créer précedement `csr/ACI_SERVERS.csr`
+- Choisir le bon modèle de requête (`3_Modele_pour_signature_par_ACR`)
+
+```bash
+openssl ca -config 3_Modele_pour_signature_par_ACR -in csr/ACI_SERVERS.csr -out crt/ACI_SERVERS.crt -notext
+```
+
+Cette commande m'a générer mon certificat ici: `crt/ACI_SERVERS.crt`
+
+:::info
+Faire ceci pour toutes les autres ACI (en changeant les noms de fichiers)
+:::
+
+### Client: Génération du certification client
+
+**Dans cet exemple je veux certifier le site `vert.cyber.etrs`**
+
+#### Clé privée
+
+```bash
+    openssl genrsa -out private/SITE-VERT.key -rand private/.rand 4096
+```
+
+#### Création de la requête
+
+J'ai besoin de: 
+- La clé privée générer précedement `private/SITE-VERT.key`
+- Choisir le bon modèle de requête (`4_Modele_pour_requete_SITE` ou `6_Modele_pour_requete_USER`)
+- Bien modifier l'option `--addext`
+
+```bash
+openssl req -new -config 4_Modele_pour_requete_SITE -key private/SITE-VERT.key --addext "subjectAltName = DNS:vert.cyber.etrs" -out csr/SITE-VERT.csr
+```
+
+Cette commande m'a créer une requête ici: `csr/SITE-VERT.csr`
+
+
+#### Génération du certificat
+
+J'ai besoin de:
+- La requête créer précedement `private/SITE-VERT.key`
+- Choisir le bon modèle de requête (`5_Modele_pour_signature_par_ACI_SERVERS` ou `7_Modele_pour_signature_par_ACI_USERS`)
+
+```bash
+openssl ca -config 5_Modele_pour_signature_par_ACI_SERVERS -in csr/SITE-VERT.csr -out crt/SITE-VERT.crt -notext
+```
+
+Cette commande m'a générer mon certificat ici: `crt/SITE-VERT.crt`
+
+:::info
+Faire ceci pour toutes les autres USERS/SITES (en changeant les noms de fichiers)
+:::
+
+
+### Intégration à APACHE
+
+Apache à besoin de :
+- La clé privée (`.key`) du site et du certificat (`.crt`)
+
+#### Utilisation du format exportable
+
+```bash
+    openssl pkcs12 -export -inkey private/SITE-VERT.key -in crt/SITE-VERT.crt -name "SITE-VERT" -out p12/SITE-VERT.pfx
+```
+
+Cette commande créer un fichier `p12/SITE-VERT.pfx` à transferer **sur le serveur APACHE**.
+
+**Sur le serveur APACHE**
+
+```bash
+mkdir /etc/apache2/Certificats_sites
+cd /etc/apache2/Certificats_sites
+openssl pkcs12 -in SITE-VERT.pfx -nokeys -out SITE-VERT.crt
+openssl pkcs12 -in SITE-VERT.pfx -nocerts -out SITE-VERT.key
+```
+
+:::warning
+Sur le serveur APACHE !!!
+:::
+
+**Active le module SSL**
+
+```bash
+a2enmod ssl
+systemctl restart apache2
+```
+
+Avec `vim` modifier le fichier `sites-available/vert-ssl.conf`
+<Tabs>
+  <TabItem value="vim" label="sites-available/vert-ssl.conf" default>
+    ```bash
+    SSLCertificateFile /etc/apache2/Certificats_sites/SITE-VERT.crt
+    SSLCertificateKeyFile /etc/apache2/Certificats_sites/SITE-VERT.key
+    ```
+  </TabItem>
+</Tabs>
+
+**Activer le site**
+
+```bash
+a2ensite vert-ssl
+systemctl reload apache2
+```
+
+:::info
+Pour ne pas s'embêter à retaper la passphrase à chaque redémarrage de Apache, retirer la ainsi:
+`openssl rsa -in SITE-VERT.key -out SITE-VERT.key`
+:::
+
+Félicitation, maintenant il ne reste plus qu'à importer les certificats Racine `ACR_CYBER.crt` et Intermédiaire `ACI_SERVERS.crt` dans le magasin de certificat. (Firefox)
+
+#### Authentification Cliente
+
+J'ai besoin:
+- D'avoir transferer les fichiers `ACR_CYBER.crt` et `ACI_USERS.crt` sur le serveur APACHE
+
+
+:::warning
+Sur le serveur APACHE !!!
+:::
+
+
+Copier les fichiers `ACR_CYBER.crt` et `ACI_USERS.crt` dans `/usr/local/share/ca-certificates/`
+Puis éxécuter la commande `update-ca-certificates --fresh`
+
+
+Avec `vim` modifier le fichier `sites-available/vert-ssl.conf`
+<Tabs>
+  <TabItem value="vim" label="sites-available/vert-ssl.conf" default>
+
+    ```bash
+    #52
+    SSLCACertificateFile /etc/ssl/certs/ca-certificates.crt
+    #69
+    SSLVerifyClient require
+    #70
+    SSLVerifyDepth 2
+    ```
+  </TabItem>
+</Tabs>
+
+Recharger Apache
+
+```bash
+systemctl reload apache2
+```
+
+Félicitation, maintenant il ne reste plus qu'à importer le certificat utilisateur dans le magasin de certificat personnel. (Firefox)
+
