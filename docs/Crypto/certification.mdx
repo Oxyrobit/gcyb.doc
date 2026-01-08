@@ -16,7 +16,6 @@ import TabItem from '@theme/TabItem';
     ```bash
     mkdir crl csr crt p12
     ```
-    *
     ```bash
     echo 01 > serial
     ```
@@ -38,14 +37,14 @@ import TabItem from '@theme/TabItem';
   <TabItem value="su" label="/etc/ssl/" default>
 
 ```bash
-    openssl genrsa -out private/ACR_CYBER.key -rand private/.rand 4096
+openssl genrsa -out private/ACR_CYBER.key -rand private/.rand 4096
 ```
   </TabItem>
 </Tabs>
 *Limiter les droits sur celle-ci*
 
 ```bash
-    chmod 400 private/ACR_CYBER.key
+chmod 400 private/ACR_CYBER.key
 ```
 
 :::info Astuce
@@ -59,8 +58,10 @@ Faire l'opération inverse avec `chattr -i <fichier>`
 
 **Afficher diverses informations sur la paire de clé**
 ```bash
-openssl rsa -in private/ACR_CYBER.key -noout -text # <--- Affiche les informations détaillées de la clé
-openssl rsa -in private/ACR_CYBER.key -pubout # <--- Affiche la clé publique
+# Affiche les informations détaillées de la clé
+openssl rsa -in private/ACR_CYBER.key -noout -text
+# Affiche la clé publique
+openssl rsa -in private/ACR_CYBER.key -pubout
 ```
 
 #### Création de la requête et génération du certificat auto-signé
@@ -80,15 +81,17 @@ openssl req -x509 -config 1_Modele_pour_ACR -key private/ACR_CYBER.key -out crt/
 
 :::info
 L'option `-x509` est obligatoire quand il s'agit de certificats d'autorté
-`-config <modele>` doit contenir `basicConstraints = critical, CA:true`
+**le modèle** doit contenir `basicConstraints = critical, CA:true`
 Je dois définir une durée de validé ? `-days <jours>` !
 :::
 
 **Visualiser son certificat**
 
 ```bash
-openssl x509 -in crt/ACR_CYBER.crt -noout -text # <--- Affiche les informations détaillées du certificat (on peux y voir la duré de validité)
-openssl x509 -purpose -in crt/ACR_CYBER.crt  # <--- Afficher les informations sur l’utilisation possible du certificat
+# Affiche les informations détaillées du certificat (on peux y voir la duré de validité)
+openssl x509 -in crt/ACR_CYBER.crt -noout -text
+# Afficher les informations sur l’utilisation possible du certificat
+openssl x509 -purpose -in crt/ACR_CYBER.crt
 ```
 ### ACI: Autorité de Certification Intermédiaire
 
@@ -97,7 +100,7 @@ Similaire à la création d'une ACR mais quelques étapes en plus
 #### Génération de la clé
 
 ```bash
-    openssl genrsa -out private/ACI_SERVEURS.key -rand private/.rand 4096
+openssl genrsa -out private/ACI_SERVERS.key -rand private/.rand 4096
 ```
 
 :::warning
@@ -146,14 +149,14 @@ Cette commande m'a générer mon certificat ici: `crt/ACI_SERVERS.crt`
 Faire ceci pour toutes les autres ACI (en changeant les noms de fichiers)
 :::
 
-### Client: Génération du certification client
+### Client: Génération du certificat client
 
 **Dans cet exemple je veux certifier le site `vert.cyber.etrs`**
 
 #### Clé privée
 
 ```bash
-    openssl genrsa -out private/SITE-VERT.key -rand private/.rand 4096
+openssl genrsa -out private/SITE-VERT.key -rand private/.rand 4096
 ```
 
 #### Création de la requête
@@ -195,7 +198,7 @@ Apache à besoin de :
 #### Utilisation du format exportable
 
 ```bash
-    openssl pkcs12 -export -inkey private/SITE-VERT.key -in crt/SITE-VERT.crt -name "SITE-VERT" -out p12/SITE-VERT.pfx
+openssl pkcs12 -export -inkey private/SITE-VERT.key -in crt/SITE-VERT.crt -name "SITE-VERT" -out p12/SITE-VERT.pfx
 ```
 
 Cette commande créer un fichier `p12/SITE-VERT.pfx` à transferer **sur le serveur APACHE**.
@@ -239,6 +242,7 @@ systemctl reload apache2
 
 :::info
 Pour ne pas s'embêter à retaper la passphrase à chaque redémarrage de Apache, retirer la ainsi:
+
 `openssl rsa -in SITE-VERT.key -out SITE-VERT.key`
 :::
 
@@ -256,6 +260,7 @@ Sur le serveur APACHE !!!
 
 
 Copier les fichiers `ACR_CYBER.crt` et `ACI_USERS.crt` dans `/usr/local/share/ca-certificates/`
+
 Puis éxécuter la commande `update-ca-certificates --fresh`
 
 
