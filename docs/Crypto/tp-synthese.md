@@ -136,15 +136,109 @@ Tentez d'y accéder depuis la `Windows 10`
 
 `https://ad-aci-cyber.cyber.xxx/certsrv`, Login `Administrateur`
 
+## Sécuriser site vert
 
-8. Sur Admin linux créer le .rand et clé genrsa pour le site
-8.1 Générer la demande et transmettre via le site
-Recuperer le certificat en base64 et le mettre dans srv apache /etc/ssl/certs/.
-transmettre aussi la clé privée au srv apache dans /etc/ssl/privates
-mettre les bon droit `chown root:ssl-cert /etc/ssl/site.vert.key` et `chmod 640 /etc/ssl/private/site-vert.key`
-faire la conf apache
-active mod ssl, active site
-vérifier bon fonctionnement 
+Depuis l'**Station Administration**
+
+
+```bash
+sudo su -
+```
+
+Modifier `/etc/hosts`
+
+```bash
+vim /etc/hosts
+
+# Ajouter 
+#<IP de ACI-CYBER> ad-aci-cyber.cyber.xxx
+192.168.56.5 ad-aci-cyber.cyber.xxx
+```
+
+```bash
+cd /etc/ssl
+```
+
+**Création du fichier random**
+```bash
+dd if=/dev/urandom of=private/.rand bs=1k count=16
+```
+
+**Génération de la clé privée**
+```
+openssl genrsa -out private/SITE-VERT.key -rand private/.rand 4096
+```
+
+**Créer la requête**
+```
+openssl req -new -config 4_Modele_pour_requete_SITE -key private/SITE-VERT.key --addext "subjectAltName = DNS:vert.cyber.xxx" -out /media/sf_PartageVbox/SITE-VERT.req
+```
+
+*La requête est directement enregistrer dans le *dossier partagé*
+
+### Génération du certificat pour le site vert
+
+- [ ] Copier le contenu du fichier `media/sf_PartageVbox/SITE-VERT.req`
+- [ ] Importer le certificat `ACR-CYBER.crt` (et si necessaire `ACI-CYBER`) dans "Authority"
+- [ ] Se rendre sur `https://ad-aci-cyber.cyber.xxx/certsrv` (se connecter avec Administrateur) et Demander un certificat avancée
+- [ ] Coller le contenu de la requete et séléctionner `Serveur Web` dans **Modèle de Certificat**, puis **Envoyer**
+- [ ] **Télécharger** le certificat au format `base64`.
+
+Renommer le certificat `SITE-VERT.crt` puis le déplacer dans le dossier `/media/sf_PartageVbox/`
+
+**Exporter le certificat et sa clé privée.**
+
+```bash
+openssl pkcs12 -export -inkey /etc/ssl/private/SITE-VERT.key -in /media/sf_PartageVbox/SITE-VERT.crt -name "SITE-VERT" -out /media/sf_PartageVbox/SITE-VERT.pfx
+```
+
+### Configurer le site vert
+
+Depuis **Serveur-linux**
+
+```bash
+sudo su -
+```
+
+Importer la clé privée et le certificat.
+
+```bash
+openssl pkcs12 -in /media/sf_PartageVbox/SITE-VERT.pfx -nokeys -out /etc/ssl/certs/SITE-VERT.crt
+openssl pkcs12 -in /media/sf_PartageVbox/SITE-VERT.pfx -nocerts -out /etc/ssl/private/SITE-VERT.key
+chown root:cert-ssl /etc/ssl/private/SITE-VERT.key
+chmod 640 /etc/ssl/private/SITE-VERT.key
+```
+
+Modifier le fichier `/etc/apache2/sites-available/vert-ssl.conf`
+
+Ajouter/Décommenter les lignes:
+
+```bash
+SSLCertificateFile /etc/ssl/certs/SITE-VERT.crt
+SSLCertificateKeyFile /etc/ssl/private/SITE-VERT.key
+```
+
+**Sauvegarder** et quitter
+
+Puis:
+- Activer le module SSL `a2enmod ssl`
+- Activer le site vert `a2ensite vert-ssl`
+- Redemarer Apache2 `systemctl restart apache2`
+
+
+Depuis l'**Station Administration** 
+
+- Vérifier que le site vert fonctionne
+
+Depuis la **Windows 10**
+
+:::warning
+Vérifier les enregistrements DNS avant d'essayer, dans la console DNS (ACI-CYBER), `vert` doit pointé vers l'adresse IP de `serveur-linux`
+:::
+
+- Vérifier que le site vert fonctionne
+
+
 
 Sur W10:
 créer certificat client `certmgr.msc` puis en profiter pour l'exporter au format pkcs12
