@@ -226,25 +226,88 @@ Puis:
 - Redemarer Apache2 `systemctl restart apache2`
 
 
-Depuis l'**Station Administration** 
+Depuis la **Station Administration** 
 
-- Vérifier que le site vert fonctionne
+- Vérifier que le site vert fonctionne en `https`
 
 Depuis la **Windows 10**
 
 :::warning
-Vérifier les enregistrements DNS avant d'essayer, dans la console DNS (ACI-CYBER), `vert` doit pointé vers l'adresse IP de `serveur-linux`
+Vérifier les enregistrements DNS avant d'essayer. Dans la console DNS (ACI-CYBER), `vert` doit pointer vers l'adresse IP de `serveur-linux`
 :::
 
-- Vérifier que le site vert fonctionne
+- Vérifier que le site vert fonctionne en `https`
 
+## Authentification Client
 
+Depuis la **Windows 10**
 
-Sur W10:
-créer certificat client `certmgr.msc` puis en profiter pour l'exporter au format pkcs12
+Afficher le magasin de **Certificat utilisateur local** (`certmgr.msc`)
 
-Sur APACHE:
-Activer vérif client.
-verifier que les certificat soit en base64, sinon l'ouvrir dans windows et `copier dans un fichier`
-importer les crt ACR et ACI dans `/usr/local/share/ca-certificates/` et executer `ca-certifi[TAB] --fresh`
-redemarer apache
+- [ ] Demander un nouveau certificat
+- [ ] Cocher `Utilisateur`, puis **Détails** et **Propriétés**
+- [ ] Activer la **protection de clé privée forte**
+
+Un fois le certificat, on va l'exporter, il nous servira plus tard. 
+
+Dans le Magasin Personnel/Certificats
+
+- [ ] Exporter au format PKCS#12 (avec la clé privée) et l'exporter dans le **Dossier partagée** et nommée le `user1.pfx`
+
+Convertir les certificats Binaire en base64
+
+Se rendre dans le *Dossier partagé**
+
+Ouvrir le certiciat `ACR-CYBER.crt` puis `Copier le fichier`. Et l'exporter au format `base64` avec le même nom
+
+Faire la même chose avec `ACI-CYBER.crt`
+
+Cette action permet de rendre visible les certificats par Linux.
+
+:::warning
+Bien activer les `Extensions de fichiers` dans l'explorateur Windows
+:::
+
+Depuis **Serveur-linux**
+
+```bash
+sudo su -
+```
+
+Importer les certificats dans le magasin linux
+
+```bash
+cp /media/sf_PartageVbox/AC*.crt /usr/local/share/ca-certificates/.
+update-ca-certificates --fresh
+```
+
+Modifier le fichier `/etc/apache2/sites-available/vert-ssl.conf`
+
+Ajouter/Décommenter les lignes:
+
+```bash
+#52
+SSLCACertificateFile /etc/ssl/certs/ca-certificates.crt
+#69
+SSLVerifyClient require
+#70
+SSLVerifyDepth 2
+```
+
+Redemarer le service Apache2
+
+```bash
+systemctl restart apache2
+```
+
+### Vérification
+
+Depuis la **Station Administration** 
+
+- Importer le certificat Client (fichier `user1.pfx`)
+- Vider les caches
+- Vérifier que le site vert fonctionne en `https`
+
+Depuis la **Windows 10** (edge)
+
+- Vérifier que le site vert fonctionne en `https`
