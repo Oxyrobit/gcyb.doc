@@ -15,7 +15,7 @@ Renommer le fichier **ACR-CYBER_ACR-CYBERX** en **ACR-CYBER**
 
 :::info Configuré la durée de vie d'un certificat
 ```cmd
-certutils.exe -setreg CA\ValidityPeriodUnits 10
+certutil.exe -setreg CA\ValidityPeriodUnits 10
 ```
 :::
 
@@ -56,14 +56,14 @@ Une fois l'installation terminé, **terminé la configuration** dans la Gestion 
 - [ ] `Autorité de certification d'entreprise`, **Suivant**
 - [ ] `Autorité de certification secondaire`, **Suivant**
 - [ ] `Créer une clé privée`, **Suivant**
-- [ ] Option `RSA#Microsoft Sofware Key...` (par defaut), 2048, `SHA256, `**Suivant**
+- [ ] Option `RSA#Microsoft Sofware Key...` (par defaut), 2048, `SHA256, **Suivant**
 - [ ] Nom de l'AC  `ACI-CYBER`, `**Suivant**
-- [ ] Enregistrer la **Demande de certificat** (laisser par défaut), `**Suivant**
-- [ ] Base de donnée, `**Suivant**
-- [ ] Confirmation, `**Configurer**
-- [ ] Resultats (Si il y a un avertissemet c'est normal), `**Fermer**
+- [ ] Enregistrer la **Demande de certificat** (laisser par défaut), **Suivant**
+- [ ] Base de donnée, **Suivant**
+- [ ] Confirmation, **Configurer**
+- [ ] Resultats (Si il y a un avertissemet c'est normal), **Fermer**
 
-**Copier** le fichier de requête dans le **dossier partagé**
+**Copier** le fichier de requête (présent dans le `C:\`) dans le **dossier partagé**
 
 ### Générer le certificat de l'ACI
 
@@ -179,7 +179,7 @@ openssl req -new -config 4_Modele_pour_requete_SITE -key private/SITE-VERT.key -
 ### Génération du certificat pour le site vert
 
 - [ ] Copier le contenu du fichier `media/sf_PartageVbox/SITE-VERT.req`
-- [ ] Importer le certificat `ACR-CYBER.crt` (et si necessaire `ACI-CYBER`) dans "Authority"
+- [ ] Sur Mozilla: importer le certificat `ACR-CYBER.crt` (et si necessaire `ACI-CYBER`) dans "Authority"
 - [ ] Se rendre sur `https://ad-aci-cyber.cyber.xxx/certsrv` (se connecter avec Administrateur) et Demander un certificat avancée
 - [ ] Coller le contenu de la requete et séléctionner `Serveur Web` dans **Modèle de Certificat**, puis **Envoyer**
 - [ ] **Télécharger** le certificat au format `base64`.
@@ -205,7 +205,7 @@ Importer la clé privée et le certificat.
 ```bash
 openssl pkcs12 -in /media/sf_PartageVbox/SITE-VERT.pfx -nokeys -out /etc/ssl/certs/SITE-VERT.crt
 openssl pkcs12 -in /media/sf_PartageVbox/SITE-VERT.pfx -nocerts -out /etc/ssl/private/SITE-VERT.key
-chown root:cert-ssl /etc/ssl/private/SITE-VERT.key
+chown root:ssl-cert /etc/ssl/private/SITE-VERT.key
 chmod 640 /etc/ssl/private/SITE-VERT.key
 ```
 
