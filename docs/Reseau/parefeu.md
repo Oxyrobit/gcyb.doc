@@ -23,4 +23,11 @@ BSD/FreeBSD/MacOS: Packet Filter
 - Seuls les flux autorisés par une politique locale peuvent passer (Whitelist)
 - Le système lui même est résistant aux agressions
 
+### Pare-feu moderne
+- IDS / IPS
+- IGC
+- Tunnel VPN
+    - SSL/TLS
+    - IpSec (de type site à site)
+    - GRE
 
