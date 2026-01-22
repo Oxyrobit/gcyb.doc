@@ -30,4 +30,54 @@ BSD/FreeBSD/MacOS: Packet Filter
     - SSL/TLS
     - IpSec (de type site à site)
     - GRE
+### Parfeu Debian
+
+Activer le routage entre les cartes reseaux
+
+```bash
+sysctl net.ipv4.ip_forward=1
+```
+
+### Les tables
+- La table `filter`
+- La table `nat`
+- La table `mangle` (ttl, mark...)
+- La table `raw`
+- La table `security`
+
+### Les chaines
+
+Table `filter`
+- INPUT
+- OUTPUT
+
+Table `nat`
+- PREROUTING (DNAT)
+- POSTROUTING (SNAT)
+
+### Regles
+
+Visualiser les chaines
+```bash
+iptables -nvL
+```
+```bash
+# Option iptables
+
+iptables -A # Append (Inserer à la fin)
+iptables -D # Delete (supprime une regle)
+iptables -F # Flush (Vider la chaine)
+iptables -I # Insert (Insrer au debut)
+iptables -Z # Zero (remettre a zero le compteur)
+iptables -N # New (créer une nouvelle chaine)
+iptables -X # Supprimer une nouvelle chaine
+````
+
+Bloquer toutes les chaines
+
+```bash
+iptables -P OUTPUT DROP
+iptables -P INPUT DROP
+iptables -P FORWARD DROP
+```
 
