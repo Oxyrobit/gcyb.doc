@@ -35,6 +35,7 @@ BSD/FreeBSD/MacOS: Packet Filter
 Activer le routage entre les cartes reseaux
 
 ```bash
+iptables -t nat POSTROUTING -o INTERFACE-WAN -j MASQUERADE
 sysctl net.ipv4.ip_forward=1
 ```
 
@@ -80,4 +81,3 @@ iptables -P OUTPUT DROP
 iptables -P INPUT DROP
 iptables -P FORWARD DROP
 ```
-
