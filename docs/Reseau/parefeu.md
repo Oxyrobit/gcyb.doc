@@ -85,8 +85,35 @@ iptables -P FORWARD DROP
 ### Modules
 
 ```bash
--m conntrack --ctstate NEW # Autorisé les nouvelles connexion
--m conntrack --ctstate ESTABLISHED # Autorisé les connexion déjà établis
--m multiport --dports 80,443 # Autoriser plusieurs ports destination (--sports possible aussi (un côté à la fois))
+# Autoriser les nouvelles connexions
+-m conntrack --ctstate NEW
 
+# Autoriser les connexions déjà établies
+-m conntrack --ctstate ESTABLISHED
+
+# Autoriser plusieurs ports de destination (80 et 443)
+# (Il est aussi possible d'utiliser --sports pour les ports source, mais un seul type à la fois)
+-m multiport --dports 80,443
+
+# Ajouter un log pour une règle spécifique
+# La règle de log doit être dupliquée et placée **au-dessus** de la règle concernée
+-j LOG --log-prefix "IPT SSH INPUT ACCEPT "
+
+```
+## Protection de la passerelle
+Section **S3: Protection de la passerelle**
+
+```bash
+iptables -A INPUT -j LOG --log-prefix "IPT INPUT DROP"
+iptables -A OUTPUT -j LOG --log-prefix "IPT OUTPUT DROP"
+iptables -A INPUT -j DROP
+iptables -A OUTPUT -j DROP
+```
+
+## Regles NAT
+
+```bash
+iptables -F
+iptables -t nat -F
+iptables -t nat -A POSTROUTING -o <INTEERFACE_WAN> -j SNAT --to-source <IP_FIREWALL> # Change l'IP Source d'un reseau LAN vers WAN
 ```
