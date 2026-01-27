@@ -113,7 +113,18 @@ iptables -A OUTPUT -j DROP
 ## Regles NAT
 
 ```bash
+# Réinitialiser toutes les règles existantes
 iptables -F
+
+# Réinitialiser les règles de la table NAT
 iptables -t nat -F
-iptables -t nat -A POSTROUTING -o <INTEERFACE_WAN> -j SNAT --to-source <IP_FIREWALL> # Change l'IP Source d'un reseau LAN vers WAN
+
+# SNAT (Source NAT) : Remplacer l’IP source des paquets sortant par l’IP du firewall
+# Utile pour masquer un réseau LAN derrière une IP publique
+iptables -t nat -A POSTROUTING -o <INTERFACE_WAN> -j SNAT --to-source <IP_FIREWALL>
+
+# DNAT (Destination NAT) : Rediriger le trafic entrant sur le port 8080 vers une IP interne
+# Exemple : Rediriger les requêtes TCP vers un serveur interne
+iptables -t nat -A PREROUTING -i <INTERFACE_WAN> -d <IP_FIREWALL> -p tcp --dport 8080 -j DNAT --to-destination <IP_CIBLE>
+
 ```
