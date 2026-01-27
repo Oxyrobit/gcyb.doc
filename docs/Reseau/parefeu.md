@@ -72,7 +72,7 @@ iptables -I # Insert (Insrer au debut)
 iptables -Z # Zero (remettre a zero le compteur)
 iptables -N # New (créer une nouvelle chaine)
 iptables -X # Supprimer une nouvelle chaine
-````
+```
 
 Bloquer toutes les chaines
 
@@ -80,4 +80,13 @@ Bloquer toutes les chaines
 iptables -P OUTPUT DROP
 iptables -P INPUT DROP
 iptables -P FORWARD DROP
+```
+
+### Modules
+
+```bash
+-m conntrack --ctstate NEW # Autorisé les nouvelles connexion
+-m conntrack --ctstate ESTABLISHED # Autorisé les connexion déjà établis
+-m multiport --dports 80,443 # Autoriser plusieurs ports destination (--sports possible aussi (un côté à la fois))
+
 ```
