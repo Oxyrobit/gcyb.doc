@@ -92,13 +92,14 @@ jobs:
       - name: Port knocking to open SSH
         run: |
           knock ${{ secrets.SSH_HOST }} ${{ secrets.KNOCK_PORT_1 }} ${{ secrets.KNOCK_PORT_2 }} ${{ secrets.KNOCK_PORT_3 }}
-          sleep 2
+          sleep 5
 
       - name: Upload UPDATE_GCYB via rsync
         run: |
           rsync -avz -e "ssh -i ~/.ssh/id_ed25519" UPDATE_GCYB ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/
 
       - name: Port knocking to close SSH
+        if: always()
         run: |
           knock ${{ secrets.SSH_HOST }} ${{ secrets.KNOCK_PORT_1 }} ${{ secrets.KNOCK_PORT_2 }} ${{ secrets.KNOCK_PORT_3 }}
           
