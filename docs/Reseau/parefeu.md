@@ -100,7 +100,7 @@ iptables -P FORWARD DROP
 -j LOG --log-prefix "IPT SSH INPUT ACCEPT "
 
 ```
-## Protection de la passerelle
+### Protection de la passerelle
 Section **S3: Protection de la passerelle**
 
 ```bash
@@ -110,7 +110,7 @@ iptables -A INPUT -j DROP
 iptables -A OUTPUT -j DROP
 ```
 
-## Regles NAT
+### Regles NAT
 
 ```bash
 # Réinitialiser toutes les règles existantes
@@ -127,4 +127,21 @@ iptables -t nat -A POSTROUTING -o <INTERFACE_WAN> -j SNAT --to-source <IP_FIREWA
 # Exemple : Rediriger les requêtes TCP vers un serveur interne
 iptables -t nat -A PREROUTING -i <INTERFACE_WAN> -d <IP_FIREWALL> -p tcp --dport 8080 -j DNAT --to-destination <IP_CIBLE>
 
+```
+
+
+## Les proxy
+
+```bash
+# Rediriger le trafic TCP entrant sur les ports 80 et 443 vers le port 8080
+# (Utilisé pour intercepter le trafic HTTP/HTTPS et le rediriger sur le proxy)
+iptables -t nat -A PREROUTING -i <INT_LOCAL> -p tcp -m multiport --dports 443,80 -j REDIRECT --to-ports 8080
+
+# Bloquer explicitement le trafic TCP entrant sur le port 8080
+# (Empêche les connexions directes sur ce port)
+iptables -t mangle -A PREROUTING -i <INT_LOCAL> -p tcp --dport 8080 -j DROP
+
+# Autoriser les nouvelles connexions TCP sur le port 8080 depuis le réseau local
+# (Seulement pour les adresses sources du réseau local)
+iptables -A INPUT -i <INT_LOCAL> -s <ADDR_RESEAU_LOCAL> -p tcp --dport 8080 -m conntrack --ctstate NEW -j ACCEPT
 ```
