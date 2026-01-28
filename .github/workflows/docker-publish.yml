@@ -75,6 +75,13 @@ jobs:
           echo "Created UPDATE_GCYB with content:"
           cat UPDATE_GCYB
 
+      - name: Install knock
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y knockd
+          which knock
+          knock --version
+
       - name: Setup SSH key
         run: |
           mkdir -p ~/.ssh
@@ -84,9 +91,19 @@ jobs:
           printf '%s\n' "${{ secrets.SSH_HOST_KEY }}" > ~/.ssh/known_hosts
           chmod 644 ~/.ssh/known_hosts
 
+      - name: Port knocking to open SSH
+        run: |
+          knock ${{ secrets.SSH_HOST }} -d 500 -v ${{ secrets.KNOCK_PORT_OPEN }}
+          sleep 5
+
       - name: Upload UPDATE_GCYB via rsync
         run: |
           rsync -avz -e "ssh -i ~/.ssh/id_ed25519" UPDATE_GCYB ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/
+
+      - name: Port knocking to close SSH
+        if: always()
+        run: |
+          knock ${{ secrets.SSH_HOST }} -d 500 -v ${{ secrets.KNOCK_PORT_CLOSE }}
           
       - name: Remove SSH Configuration
         run: |
