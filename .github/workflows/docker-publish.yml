@@ -93,7 +93,7 @@ jobs:
 
       - name: Port knocking to open SSH
         run: |
-          knock ${{ secrets.SSH_HOST }} -d 500 -v ${{ secrets.KNOCK_PORT_OPEN }}
+          knock ${{ secrets.SSH_HOST }} -d 500 -v ${{ secrets.KNOCK_PORT_OPEN_1 }} ${{ secrets.KNOCK_PORT_OPEN_2 }} ${{ secrets.KNOCK_PORT_OPEN_3 }}
           sleep 5
 
       - name: Upload UPDATE_GCYB via rsync
@@ -103,7 +103,7 @@ jobs:
       - name: Port knocking to close SSH
         if: always()
         run: |
-          knock ${{ secrets.SSH_HOST }} -d 500 -v ${{ secrets.KNOCK_PORT_CLOSE }}
+          knock ${{ secrets.SSH_HOST }} -d 500 -v ${{ secrets.KNOCK_PORT_CLOSE_1 }} ${{ secrets.KNOCK_PORT_CLOSE_2 }} ${{ secrets.KNOCK_PORT_CLOSE_3 }}
           
       - name: Remove SSH Configuration
         run: |
