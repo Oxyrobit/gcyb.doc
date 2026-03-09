@@ -7,22 +7,22 @@ const LINKS = [
     title: 'Admin Sys & Réseau',
     items: [
       {label: 'Linux', to: '/docs/Linux/'},
-      {label: 'Réseau', to: '/docs/reseau/'},
-      {label: 'Windows', to: '/docs/windows/'},
+      {label: 'Réseau', to: '/docs/Reseau/'},
+      {label: 'Windows', to: '/docs/Windows/'},
     ],
   },
   {
     title: 'Sécurité',
     items: [
-      {label: 'Cybersécurité', to: '/docs/cyber/'},
-      {label: 'Cryptographie', to: '/docs/crypto/'},
-      {label: 'Virologie', to: '/docs/viro/'},
+      {label: 'Cybersécurité', to: '/docs/Cyber/'},
+      {label: 'Cryptographie', to: '/docs/Crypto/'},
+      {label: 'Virologie', to: '/docs/Viro/'},
     ],
   },
   {
     title: 'Développement',
     items: [
-      {label: 'Python', to: '/docs/python/'},
+      {label: 'Python', to: '/docs/Python/'},
     ],
   },
   {
