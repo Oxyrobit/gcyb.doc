@@ -1,0 +1,185 @@
+.footer {
+  background: #040b07;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.9rem;
+  position: relative;
+}
+
+/* ─── Top accent bar ─────────────────────────────────────── */
+
+.topBar {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(46, 133, 85, 0.5) 30%,
+    rgba(37, 194, 160, 0.6) 50%,
+    rgba(46, 133, 85, 0.5) 70%,
+    transparent 100%
+  );
+}
+
+/* ─── Main inner ─────────────────────────────────────────── */
+
+.inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 3.5rem 2rem 2.5rem;
+  display: flex;
+  gap: 4rem;
+  align-items: flex-start;
+}
+
+/* ─── Brand ──────────────────────────────────────────────── */
+
+.brand {
+  flex: 0 0 260px;
+}
+
+.brandLogo {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 0.9rem;
+}
+
+.logo {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 8px rgba(37, 194, 160, 0.4));
+}
+
+.brandName {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.brandAccent {
+  color: #25c2a0;
+}
+
+.brandDesc {
+  font-size: 0.85rem;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.4);
+  margin: 0 0 1.25rem;
+}
+
+.githubBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.7) !important;
+  text-decoration: none !important;
+  padding: 0.45rem 0.9rem;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  transition: background 0.2s, border-color 0.2s, color 0.2s;
+}
+
+.githubBtn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(37, 194, 160, 0.4);
+  color: #fff !important;
+}
+
+.githubIcon {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+/* ─── Link columns ───────────────────────────────────────── */
+
+.links {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: 2rem;
+}
+
+.col {}
+
+.colTitle {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.35);
+  margin: 0 0 0.85rem;
+}
+
+.colList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.link {
+  color: rgba(255, 255, 255, 0.55) !important;
+  text-decoration: none !important;
+  font-size: 0.875rem;
+  transition: color 0.15s;
+  display: inline-block;
+}
+
+.link:hover {
+  color: #25c2a0 !important;
+}
+
+/* ─── Bottom bar ─────────────────────────────────────────── */
+
+.bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1.25rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.copyright {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.25);
+}
+
+.badge {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: rgba(46, 133, 85, 0.12);
+  border: 1px solid rgba(46, 133, 85, 0.3);
+  color: #25c2a0;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+}
+
+/* ─── Responsive ─────────────────────────────────────────── */
+
+@media (max-width: 768px) {
+  .inner {
+    flex-direction: column;
+    gap: 2.5rem;
+    padding: 2.5rem 1.5rem 2rem;
+  }
+
+  .brand {
+    flex: none;
+  }
+
+  .bottom {
+    padding: 1rem 1.5rem;
+  }
+}

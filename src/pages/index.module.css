@@ -1,23 +1,314 @@
-/**
- * CSS files with the .module.css suffix will be treated as CSS modules
- * and scoped locally.
- */
+/* ─── Hero ──────────────────────────────────────────────── */
 
-.heroBanner {
-  padding: 4rem 0;
-  text-align: center;
+.hero {
   position: relative;
-  overflow: hidden;
-}
-
-@media screen and (max-width: 996px) {
-  .heroBanner {
-    padding: 2rem;
-  }
-}
-
-.buttons {
+  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
+  background: #040b07;
+}
+
+/* Grid fixe — reste en place pendant que le contenu défile */
+.heroGrid {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(46, 133, 85, 0.11) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(46, 133, 85, 0.11) 1px, transparent 1px);
+  background-size: 50px 50px;
+  animation: gridDrift 18s linear infinite;
+}
+
+@keyframes gridDrift {
+  from { background-position: 0 0; }
+  to   { background-position: 0 50px; }
+}
+
+/* Ambient glow */
+.heroGlow {
+  position: absolute;
+  width: 700px;
+  height: 700px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(46, 133, 85, 0.12) 0%, transparent 70%);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  animation: glowPulse 4s ease-in-out infinite;
+}
+
+@keyframes glowPulse {
+  0%, 100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  50%       { opacity: 0.7; transform: translate(-50%, -50%) scale(1.08); }
+}
+
+.heroContent {
+  position: relative;
+  z-index: 1;
+  will-change: transform, opacity;
+  text-align: center;
+  max-width: 700px;
+  padding: 2rem;
+}
+
+.heroLogoWrap {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+.heroLogo {
+  width: 110px;
+  height: 110px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 24px rgba(37, 194, 160, 0.5));
+  animation: logoFloat 5s ease-in-out infinite;
+}
+
+@keyframes logoFloat {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-8px); }
+}
+
+.heroBadge {
+  display: inline-block;
+  background: rgba(46, 133, 85, 0.12);
+  border: 1px solid rgba(46, 133, 85, 0.35);
+  color: #25c2a0;
+  padding: 0.3rem 1rem;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+}
+
+.heroTitle {
+  font-size: clamp(3rem, 9vw, 5.5rem);
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0 0 1rem;
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+}
+
+.heroAccent {
+  color: #25c2a0;
+  text-shadow: 0 0 50px rgba(37, 194, 160, 0.45);
+}
+
+.heroSubtitle {
+  font-size: 1.05rem;
+  color: rgba(255, 255, 255, 0.5);
+  margin: 0 auto 2.5rem;
+  max-width: 460px;
+  line-height: 1.75;
+}
+
+.heroActions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btnIcon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+.btnPrimary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: linear-gradient(135deg, #2e8555 0%, #25c2a0 100%);
+  color: #fff !important;
+  padding: 0.8rem 2rem;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-decoration: none !important;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 4px 24px rgba(46, 133, 85, 0.4);
+}
+
+.btnPrimary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 36px rgba(46, 133, 85, 0.55);
+  color: #fff !important;
+}
+
+.btnSecondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(255, 255, 255, 0.06);
+  color: #fff !important;
+  padding: 0.8rem 2rem;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-decoration: none !important;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  transition: background 0.2s, transform 0.2s;
+  backdrop-filter: blur(4px);
+}
+
+.btnSecondary:hover {
+  background: rgba(255, 255, 255, 0.12);
+  transform: translateY(-2px);
+  color: #fff !important;
+}
+
+/* ─── Section ────────────────────────────────────────────── */
+
+.section {
+  padding: 5rem 0 6rem;
+}
+
+.sectionHeader {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.sectionTitle {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.sectionDesc {
+  color: var(--ifm-color-emphasis-600);
+  font-size: 1rem;
+  margin: 0;
+}
+
+/* ─── Grid ───────────────────────────────────────────────── */
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+  gap: 1.25rem;
+}
+
+/* ─── Card ───────────────────────────────────────────────── */
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 1.75rem;
+  border-radius: 12px;
+  border: 1px solid var(--ifm-color-emphasis-200);
+  background: var(--ifm-background-color);
+  text-decoration: none !important;
+  color: inherit !important;
+  transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
+  overflow: hidden;
+}
+
+.card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--card-accent, var(--ifm-color-primary));
+  border-radius: 12px 12px 0 0;
+  transition: height 0.22s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  border-color: var(--card-accent, var(--ifm-color-primary));
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
+  text-decoration: none !important;
+}
+
+.card:hover::after {
+  height: 4px;
+}
+
+.cardIconWrap {
+  width: 46px;
+  height: 46px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.1rem;
+  color: var(--card-accent, var(--ifm-color-primary));
+  background: color-mix(in srgb, var(--card-accent, var(--ifm-color-primary)) 12%, transparent);
+}
+
+.cardIconWrap svg {
+  width: 22px;
+  height: 22px;
+}
+
+.cardTitle {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin: 0 0 0.5rem;
+  color: var(--ifm-heading-color);
+}
+
+.cardDesc {
+  font-size: 0.875rem;
+  color: var(--ifm-color-emphasis-600);
+  line-height: 1.65;
+  flex: 1;
+  margin: 0 0 1.25rem;
+}
+
+.cardArrow {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--card-accent, var(--ifm-color-primary));
+}
+
+/* ─── Dark mode ──────────────────────────────────────────── */
+
+[data-theme='dark'] .card {
+  background: rgba(255, 255, 255, 0.03);
+  border-color: rgba(255, 255, 255, 0.07);
+}
+
+[data-theme='dark'] .card:hover {
+  background: rgba(255, 255, 255, 0.05);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+}
+
+/* ─── Terminal section ───────────────────────────────────── */
+
+.terminalSection {
+  position: relative;
+  z-index: 1;
+  padding: 5rem 0 6rem;
+  background: var(--ifm-background-color);
+}
+
+.section {
+  position: relative;
+  z-index: 1;
+  background: var(--ifm-background-color);
+}
+
+/* ─── Responsive ─────────────────────────────────────────── */
+
+@media (max-width: 768px) {
+  .hero {
+    min-height: 60vh;
+  }
+
+  .heroTitle {
+    font-size: clamp(2.5rem, 12vw, 4rem);
+  }
 }
