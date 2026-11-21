@@ -30,7 +30,7 @@ Mais est-ce que l'oeil humain peut dicerné la différence entre un bleu à '255
 
 Les bits de poids fort (les plus à gauche) on plus d'influence sur la couleur et sont plus visible que les bit de poids faible (les plus à droite), aussi appeler **Least Significant Bits**.
 
-![](.\ressources\stegano.jpg)
+![](./ressources/stegano.jpg)
 
 ***En utillisant juste la valeur des derniers bits de chaque couleur, il est donc possible de créer un message sans aucune influence visible sur l'image.***
 
