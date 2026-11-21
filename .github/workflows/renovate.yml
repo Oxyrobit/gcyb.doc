@@ -1,0 +1,42 @@
+name: Renovate
+
+# Renovate auto-hébergé : ouvre les PR de mise à jour vers main et les
+# fusionne lui-même au passage suivant quand le workflow Build est vert
+# (automerge, voir renovate.json). La fusion dans main déclenche la
+# publication de l'image (workflow Docker).
+
+on:
+  schedule:
+    # Toutes les 3 heures : un passage crée/rebase la PR, le suivant la
+    # fusionne une fois le Build vert.
+    - cron: "17 */3 * * *"
+  workflow_dispatch:
+    inputs:
+      log_level:
+        description: "Niveau de log Renovate"
+        type: choice
+        options: [info, debug]
+        default: info
+
+concurrency:
+  group: renovate
+  cancel-in-progress: false
+
+jobs:
+  renovate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Renovate
+        uses: renovatebot/github-action@v46.3.14
+        with:
+          # PAT (portées repo + workflow) : le GITHUB_TOKEN par défaut ne
+          # déclencherait ni le Build sur les PR, ni la publication au merge.
+          token: ${{ secrets.RENOVATE_TOKEN }}
+        env:
+          LOG_LEVEL: ${{ inputs.log_level || 'info' }}
+          RENOVATE_REPOSITORIES: ${{ github.repository }}
+          RENOVATE_ONBOARDING: "false"
+          RENOVATE_REQUIRE_CONFIG: "required"
+          RENOVATE_GIT_AUTHOR: "Renovate Bot <15943467+Oxyrobit@users.noreply.github.com>"

@@ -1,0 +1,33 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:recommended", "docker:pinDigests"],
+  "timezone": "Europe/Paris",
+  "baseBranchPatterns": ["main"],
+  "dependencyDashboard": true,
+  "labels": ["renovate"],
+  "gitAuthor": "Renovate Bot <15943467+Oxyrobit@users.noreply.github.com>",
+  "rebaseWhen": "behind-base-branch",
+  "prHourlyLimit": 0,
+  "prConcurrentLimit": 10,
+  "automerge": true,
+  "automergeType": "pr",
+  "platformAutomerge": false,
+  "lockFileMaintenance": {
+    "enabled": true,
+    "automerge": true,
+    "schedule": ["before 6am on monday"]
+  },
+  "packageRules": [
+    {
+      "description": "Une seule PR pour toutes les mises à jour minor/patch/digest ; les majors restent séparées",
+      "matchUpdateTypes": ["minor", "patch", "digest", "pin", "pinDigest"],
+      "groupName": "dépendances mineures",
+      "groupSlug": "minor-patch"
+    },
+    {
+      "description": "Actions GitHub groupées",
+      "matchManagers": ["github-actions"],
+      "groupName": "GitHub Actions"
+    }
+  ]
+}
