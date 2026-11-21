@@ -1,0 +1,8 @@
+# Le build se fait dans l'image (npm ci + npm run build) : rien de local à copier.
+node_modules
+build
+.docusaurus
+.cache-loader
+.git
+.github
+npm-debug.log*

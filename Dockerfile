@@ -3,8 +3,8 @@
 FROM node:lts AS base
 ## Disable colour output from yarn to make logs easier to read.
 ENV FORCE_COLOR=0
-## Enable corepack.
-RUN corepack enable
+## Pas de corepack : le projet utilise npm (package-lock.json), et Node ≥ 25
+## ne fournit plus corepack.
 ## Set the working directory to `/opt/docusaurus`.
 WORKDIR /opt/docusaurus
 # Stage 2b: Production build mode.

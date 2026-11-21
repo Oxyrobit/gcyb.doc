@@ -4,6 +4,12 @@ on:
   pull_request:
     branches: [main]
     types: [closed]
+  # Reconstruction manuelle de l'image (ex. image de base périmée).
+  workflow_dispatch:
+
+concurrency:
+  group: publish-image
+  cancel-in-progress: false
 
 env:
   REGISTRY: ghcr.io
@@ -12,7 +18,7 @@ env:
 jobs:
   publish:
     # On ne publie QUE si le PR est mergé (pas juste "closed")
-    if: github.event.pull_request.merged == true
+    if: github.event_name == 'workflow_dispatch' || github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     permissions:
       contents: read
