@@ -46,6 +46,13 @@
         "github-actions"
       ],
       "groupName": "GitHub Actions"
+    },
+    {
+      "description": "Node : uniquement les versions LTS (majeures paires) de l'image DHI",
+      "matchPackageNames": [
+        "dhi.io/node"
+      ],
+      "allowedVersions": "/^\\d*[02468]\\./"
     }
   ]
 }
