@@ -1,8 +1,28 @@
+import {execSync} from 'node:child_process';
 import {themes as prismThemes} from 'prism-react-renderer';
 import type {Config} from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
 
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
+
+// Version affichée en pied de page. En CI/Docker, GIT_SHA et BUILD_DATE sont
+// passés en --build-arg (le tag d'image `sha-xxxxxxx` correspond au même
+// commit). En local, on interroge git ; à défaut, « dev ».
+function gitSha(): string {
+  if (process.env.GIT_SHA) return process.env.GIT_SHA;
+  try {
+    return execSync('git rev-parse HEAD', {stdio: ['ignore', 'pipe', 'ignore']})
+      .toString()
+      .trim();
+  } catch {
+    return '';
+  }
+}
+const fullSha = gitSha();
+const shortSha = fullSha.slice(0, 7);
+const buildDate =
+  process.env.BUILD_DATE ||
+  new Date().toLocaleString('sv-SE', {timeZone: 'Europe/Paris'}).slice(0, 16);
 
 const config: Config = {
   title: 'GCYB Docs',
@@ -24,6 +44,11 @@ const config: Config = {
   // If you aren't using GitHub pages, you don't need these.
   organizationName: 'Oxyrobit Corporation', // Usually your GitHub org/user name.
   projectName: 'GCYB Docs', // Usually your repo name.
+
+  // Lu par src/theme/Footer (pied de page personnalisé).
+  customFields: {
+    siteVersion: {sha: fullSha, shortSha, buildDate},
+  },
 
   onBrokenLinks: 'throw',
 

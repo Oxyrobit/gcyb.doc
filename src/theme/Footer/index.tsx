@@ -1,5 +1,6 @@
 import type {ReactNode} from 'react';
 import Link from '@docusaurus/Link';
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import styles from './styles.module.css';
 
 const LINKS = [
@@ -39,6 +40,33 @@ function FooterLink({label, to, href}: {label: string; to?: string; href?: strin
     return <a href={href} target="_blank" rel="noopener noreferrer" className={styles.link}>{label}</a>;
   }
   return <Link to={to!} className={styles.link}>{label}</Link>;
+}
+
+type SiteVersion = {sha: string; shortSha: string; buildDate: string};
+
+// Version de l'image : même SHA que le tag Docker `sha-xxxxxxx`.
+function Version(): ReactNode {
+  const {siteConfig} = useDocusaurusContext();
+  const v = siteConfig.customFields?.siteVersion as SiteVersion | undefined;
+  if (!v) return null;
+  return (
+    <span className={styles.version} title={`Build du ${v.buildDate}`}>
+      {'Version '}
+      {v.shortSha ? (
+        <a
+          href={`https://github.com/Oxyrobit/gcyb.doc/commit/${v.sha}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={styles.link}
+        >
+          {`sha-${v.shortSha}`}
+        </a>
+      ) : (
+        'dev'
+      )}
+      {` · ${v.buildDate}`}
+    </span>
+  );
 }
 
 export default function Footer(): ReactNode {
@@ -94,6 +122,7 @@ export default function Footer(): ReactNode {
         <span className={styles.copyright}>
           Copyright &copy; {new Date().getFullYear()} Oxyrobit Corporation &mdash; Built with Docusaurus
         </span>
+        <Version />
         <span className={styles.badge}>Open Source</span>
       </div>
     </footer>
