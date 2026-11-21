@@ -14,6 +14,10 @@ on:
 permissions:
   contents: read
 
+env:
+  # renovate: datasource=docker depName=aquasec/trivy
+  TRIVY_VERSION: 0.76.2
+
 concurrency:
   group: build-${{ github.ref }}
   cancel-in-progress: true
@@ -49,6 +53,28 @@ jobs:
             BUILD_DATE=CI
           cache-from: type=gha
           cache-to: type=gha,mode=max
+
+      # Scan de vulnérabilités de l'image construite. Informatif : il ne bloque
+      # pas la PR (pas de --exit-code). Résultat dans le log (tableau
+      # CRITICAL/HIGH) et dans l'onglet « Summary » du run (synthèse).
+      - name: Cache base Trivy
+        uses: actions/cache@v6
+        with:
+          path: ${{ runner.temp }}/trivy-cache
+          key: trivy-db-${{ github.run_id }}
+          restore-keys: trivy-db-
+
+      - name: Scan Trivy
+        run: |
+          docker run --rm \
+            -v /var/run/docker.sock:/var/run/docker.sock \
+            -v "$RUNNER_TEMP/trivy-cache:/root/.cache/trivy" \
+            -v "$PWD:/work" \
+            "aquasec/trivy:$TRIVY_VERSION" image --quiet --scanners vuln \
+              --format json --output /work/trivy.json gcyb-doc:ci
+          docker run --rm -v "$PWD:/work" "aquasec/trivy:$TRIVY_VERSION" \
+            convert --quiet --format table --severity CRITICAL,HIGH /work/trivy.json
+          python3 .github/scripts/trivy-summary.py trivy.json >> "$GITHUB_STEP_SUMMARY"
 
       - name: Smoke test de l'image
         run: |
