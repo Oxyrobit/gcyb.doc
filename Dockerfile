@@ -15,6 +15,11 @@ WORKDIR /opt/docusaurus
 COPY . /opt/docusaurus/
 ## Install dependencies with `--immutable` to ensure reproducibility.
 RUN npm ci
+## Version affichée en pied de page (passée par la CI ; après `npm ci` pour
+## ne pas invalider le cache des dépendances à chaque commit).
+ARG GIT_SHA=""
+ARG BUILD_DATE=""
+ENV GIT_SHA=${GIT_SHA} BUILD_DATE=${BUILD_DATE}
 ## Build the static site.
 RUN npm run build
 

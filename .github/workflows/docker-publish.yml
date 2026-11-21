@@ -50,6 +50,10 @@ jobs:
             type=raw,value=latest
             type=sha
 
+      - name: Date de build
+        id: date
+        run: echo "value=$(TZ=Europe/Paris date '+%Y-%m-%d %H:%M')" >> "$GITHUB_OUTPUT"
+
       - name: Build and push
         id: build
         uses: docker/build-push-action@v7
@@ -58,6 +62,10 @@ jobs:
           push: true                   # <- clé de voûte
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+          # Version affichée en pied de page (même SHA que le tag sha-xxxxxxx).
+          build-args: |
+            GIT_SHA=${{ github.sha }}
+            BUILD_DATE=${{ steps.date.outputs.value }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
 

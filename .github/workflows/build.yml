@@ -44,6 +44,9 @@ jobs:
           push: false
           load: true
           tags: gcyb-doc:ci
+          build-args: |
+            GIT_SHA=${{ github.event.pull_request.head.sha || github.sha }}
+            BUILD_DATE=CI
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
@@ -52,7 +55,12 @@ jobs:
           docker run -d --name gcyb-ci -p 3000:3000 gcyb-doc:ci
           for i in $(seq 1 30); do
             code=$(curl -s -o /dev/null -w '%{http_code}' -H 'Accept-Language: fr' http://127.0.0.1:3000/ || true)
-            [ "$code" = 200 ] && { echo "Site OK ($code)"; exit 0; }
+            if [ "$code" = 200 ]; then
+              echo "Site OK ($code)"
+              curl -s -H 'Accept-Language: fr' http://127.0.0.1:3000/ | grep -o 'sha-[0-9a-f]\{7\}</a>' \
+                || { echo "Version absente du pied de page"; exit 1; }
+              exit 0
+            fi
             sleep 2
           done
           docker logs gcyb-ci

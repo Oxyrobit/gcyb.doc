@@ -166,6 +166,13 @@
   border-radius: 999px;
 }
 
+/* Version de l'image (sha + date de build) */
+.version {
+  font-size: 0.75rem;
+  font-family: var(--ifm-font-family-monospace);
+  opacity: 0.7;
+}
+
 /* ─── Responsive ─────────────────────────────────────────── */
 
 @media (max-width: 768px) {
