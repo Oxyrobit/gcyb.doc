@@ -40,3 +40,8 @@ jobs:
           RENOVATE_ONBOARDING: "false"
           RENOVATE_REQUIRE_CONFIG: "required"
           RENOVATE_GIT_AUTHOR: "Renovate Bot <15943467+Oxyrobit@users.noreply.github.com>"
+          # Accès à dhi.io pour suivre les images de base DHI du Dockerfile.
+          RENOVATE_HOST_RULES: >-
+            [{"matchHost": "dhi.io", "hostType": "docker",
+              "username": "${{ secrets.DHI_USERNAME }}",
+              "password": "${{ secrets.DHI_TOKEN }}"}]

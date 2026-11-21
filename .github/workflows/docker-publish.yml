@@ -32,6 +32,15 @@ jobs:
       - name: Set up Buildx
         uses: docker/setup-buildx-action@v4
 
+      # Images de base Docker Hardened Images : dhi.io exige une connexion
+      # Docker Hub (secrets DHI_USERNAME / DHI_TOKEN, PAT en lecture seule).
+      - name: Login to dhi.io
+        uses: docker/login-action@v4
+        with:
+          registry: dhi.io
+          username: ${{ secrets.DHI_USERNAME }}
+          password: ${{ secrets.DHI_TOKEN }}
+
       - name: Login to GHCR
         uses: docker/login-action@v4
         with:

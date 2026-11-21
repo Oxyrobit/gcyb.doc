@@ -1,31 +1,36 @@
-# Stage 1: Base image
-## Start with a base image containing NodeJS so we can build Docusaurus.
-FROM node:lts@sha256:e18c3ccdf7d71619990b0e85639f506e2028a95410999cab24cc373cbd10e0ac AS base
-## Disable colour output from yarn to make logs easier to read.
+# syntax=docker/dockerfile:1
+#
+# Images Docker Hardened Images (dhi.io, connexion Docker Hub requise) :
+#   - étapes de build : variantes `-dev` (shell, npm/go) ;
+#   - runtime : `static`, base quasi « scratch » (certificats CA, tzdata,
+#     utilisateur nonroot) sans shell ni gestionnaire de paquets. Elle ne
+#     contient que le site construit et un serveur Go statique.
+
+# Étape 1 : construction du site Docusaurus.
+FROM dhi.io/node:26.13.1-debian13-dev AS site
 ENV FORCE_COLOR=0
-## Pas de corepack : le projet utilise npm (package-lock.json), et Node ≥ 25
-## ne fournit plus corepack.
-## Set the working directory to `/opt/docusaurus`.
 WORKDIR /opt/docusaurus
-# Stage 2b: Production build mode.
-FROM base AS prod
-## Set the working directory to `/opt/docusaurus`.
-WORKDIR /opt/docusaurus
-## Copy over the source code.
-COPY . /opt/docusaurus/
-## Install dependencies with `--immutable` to ensure reproducibility.
+## Dépendances d'abord (cache Docker tant que le lock ne change pas).
+COPY package.json package-lock.json ./
 RUN npm ci
+COPY . .
 ## Version affichée en pied de page (passée par la CI ; après `npm ci` pour
 ## ne pas invalider le cache des dépendances à chaque commit).
 ARG GIT_SHA=""
 ARG BUILD_DATE=""
 ENV GIT_SHA=${GIT_SHA} BUILD_DATE=${BUILD_DATE}
-## Build the static site.
 RUN npm run build
 
-# Stage 3a: Serve with `docusaurus serve`.
-FROM prod AS serve
-## Expose the port that Docusaurus will run on.
+# Étape 2 : serveur HTTP statique (binaire Go sans dépendance).
+FROM dhi.io/golang:1.27.4-debian13-dev AS server
+WORKDIR /src
+COPY server/ ./
+RUN CGO_ENABLED=0 go build -trimpath -ldflags="-s -w" -o /out/gcyb-serve .
+
+# Étape 3 : runtime minimal.
+FROM dhi.io/static:20261020-musl-alpine3.24 AS runtime
+COPY --from=server /out/gcyb-serve /gcyb-serve
+COPY --from=site /opt/docusaurus/build /site
+USER nonroot
 EXPOSE 3000
-## Run the production server.
-CMD ["npm", "run", "serve", "--", "--host", "0.0.0.0", "--no-open"]
+ENTRYPOINT ["/gcyb-serve", "-root", "/site", "-addr", ":3000"]
