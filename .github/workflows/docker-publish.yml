@@ -64,7 +64,7 @@ jobs:
       - name: Install cosign
         uses: sigstore/cosign-installer@v3
         with:
-          cosign-release: v2.2.4
+          cosign-release: v2.6.5
 
       - name: Sign image (keyless)
         # On signe uniquement si on a un digest (ce qui arrive… après push)
