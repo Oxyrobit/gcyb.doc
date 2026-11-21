@@ -1,6 +1,6 @@
 # Stage 1: Base image
 ## Start with a base image containing NodeJS so we can build Docusaurus.
-FROM node:lts AS base
+FROM node:lts@sha256:e18c3ccdf7d71619990b0e85639f506e2028a95410999cab24cc373cbd10e0ac AS base
 ## Disable colour output from yarn to make logs easier to read.
 ENV FORCE_COLOR=0
 ## Pas de corepack : le projet utilise npm (package-lock.json), et Node ≥ 25
