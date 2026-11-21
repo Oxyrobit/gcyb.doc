@@ -22,7 +22,7 @@ ENV GIT_SHA=${GIT_SHA} BUILD_DATE=${BUILD_DATE}
 RUN npm run build
 
 # Étape 2 : serveur HTTP statique (binaire Go sans dépendance).
-FROM dhi.io/golang:1.27.4-debian13-dev@sha256:e0a171779da68749ebe2d6e7f4978a3b340c7f4ba863527040bcc07cd730bf0a AS server
+FROM dhi.io/golang:1.27.4-debian13-dev@sha256:c096bb340b7b9a205cb704c75d5ca877392f8aed70c818ae255b10bee1822b60 AS server
 WORKDIR /src
 COPY server/ ./
 RUN CGO_ENABLED=0 go build -trimpath -ldflags="-s -w" -o /out/gcyb-serve .
