@@ -7,7 +7,7 @@
 #     contient que le site construit et un serveur Go statique.
 
 # Étape 1 : construction du site Docusaurus.
-FROM dhi.io/node:26.13.1-debian13-dev@sha256:efd29755a80e4753b972c58d0adeb3d45874c45d200d9ab8a17acf9dbb73620a AS site
+FROM dhi.io/node:26.13.1-debian13-dev@sha256:d4d70223ec5fa176c9f19eb98f8bdd14035b166c2dbfb75e4cc71ea44234f911 AS site
 ENV FORCE_COLOR=0
 WORKDIR /opt/docusaurus
 ## Dépendances d'abord (cache Docker tant que le lock ne change pas).
@@ -22,7 +22,7 @@ ENV GIT_SHA=${GIT_SHA} BUILD_DATE=${BUILD_DATE}
 RUN npm run build
 
 # Étape 2 : serveur HTTP statique (binaire Go sans dépendance).
-FROM dhi.io/golang:1.27.4-debian13-dev@sha256:121afb8b390b1d6babba8cd0a93eaf2ffa3735f835d388b9d79c2be38b41ee4f AS server
+FROM dhi.io/golang:1.27.4-debian13-dev@sha256:c5c02f15e0fd96999d48d70545b7c76b7080caebc9367680812d5244ac316bee AS server
 WORKDIR /src
 COPY server/ ./
 RUN CGO_ENABLED=0 go build -trimpath -ldflags="-s -w" -o /out/gcyb-serve .
